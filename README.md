@@ -1,4 +1,4 @@
-# Etyczny Kompilator AI — wersja 2.1
+# Etyczny Kompilator AI — wersja 2.2
 
 Autorskie narzędzie edukacyjne do projektowania, testowania i debugowania priorytetowego modelu regułowego podczas lekcji informatyki.
 
@@ -8,7 +8,8 @@ https://ethicsandschool-lgtm.github.io/etyczny-kompilator-ai/
 
 ## Najważniejsze funkcje
 
-- **S0 — stałe zabezpieczenie antydyskryminacyjne**: odrzuca cechy osobowe jako kryterium wartościowania życia;
+- **S0 – stałe zabezpieczenie nr 0** (od ang. *Safeguard 0*): litera S oznacza zabezpieczenie, a cyfra 0 wskazuje, że warstwa działa przed regułami R1–R6 i nie podlega zmianie ani przesuwaniu w hierarchii;
+- S0 odrzuca cechy osobowe jako kryterium wartościowania życia;
 - wybór trzech spośród sześciu reguł decyzyjnych;
 - hierarchia priorytetów i generowanie pseudokodu;
 - cztery autorskie przypadki testowe;

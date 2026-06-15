@@ -1,4 +1,4 @@
-AKTUALIZACJA GITHUB PAGES DO WERSJI 2.1
+AKTUALIZACJA GITHUB PAGES DO WERSJI 2.2
 
 Repozytorium: https://github.com/ethicsandschool-lgtm/etyczny-kompilator-ai
 Strona: https://ethicsandschool-lgtm.github.io/etyczny-kompilator-ai/
@@ -7,10 +7,10 @@ Strona: https://ethicsandschool-lgtm.github.io/etyczny-kompilator-ai/
 2. Wybierz Add file -> Upload files.
 3. Przeciągnij wszystkie pliki z tego folderu.
 4. Zatwierdź zmianę bez tworzenia nowej gałęzi.
-5. W polu opisu wpisz: Aktualizacja aplikacji do wersji 2.1.
+5. W polu opisu wpisz: Aktualizacja aplikacji do wersji 2.2.
 6. Odczekaj 1–3 minuty i otwórz stronę.
 7. Wykonaj twarde odświeżenie Ctrl+F5 albo Cmd+Shift+R.
-8. Sprawdź: nową nazwę R2, szczegółowe porównanie zmian, opcjonalny prompt i stopkę „wersja 2.1”.
-9. Wykonaj pełny test V1 -> V2 -> raport bez promptu oraz z promptem.
+8. Sprawdź: wyjaśnienie S0 jako „stałego zabezpieczenia nr 0” od ang. Safeguard 0 oraz stopkę „wersja 2.2”.
+9. Wykonaj pełny test V1 -> V2 -> raport i sprawdź, czy wyjaśnienie S0 pojawia się także w raporcie i pseudokodzie.
 
 Adres strony i kod QR nie zmienią się. Nie zmieniaj nazwy repozytorium, gałęzi main ani ustawień Pages.

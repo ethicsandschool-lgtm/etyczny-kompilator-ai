@@ -1,7 +1,10 @@
-INSTRUKCJA UŻYTKOWANIA — ETYCZNY KOMPILATOR AI 2.1
+INSTRUKCJA UŻYTKOWANIA — ETYCZNY KOMPILATOR AI 2.2
 
 Dostęp online: https://ethicsandschool-lgtm.github.io/etyczny-kompilator-ai/
 Wersja offline: otwórz plik index.html albo Etyczny_Kompilator_AI.html w aktualnej przeglądarce.
+
+S0 — CO OZNACZA SKRÓT?
+S0 oznacza „stałe zabezpieczenie nr 0” i pochodzi od angielskiego określenia Safeguard 0. Litera S oznacza zabezpieczenie, a cyfra 0 wskazuje, że warstwa działa przed regułami R1–R6. S0 nie podlega zmianie ani przesuwaniu w hierarchii.
 
 PRZEBIEG PRACY UCZNIA
 1. Otwórz aplikację i zapoznaj się ze stałym zabezpieczeniem S0.

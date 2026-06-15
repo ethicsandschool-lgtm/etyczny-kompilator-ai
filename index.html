@@ -74,7 +74,7 @@
     <section class="panel" id="step1">
       <h2>1. Wybierz dokładnie trzy zasady</h2>
       <p class="lead">Twój model będzie stosował zasady w kolejności priorytetów. Nie istnieje automatycznie „moralnie poprawna” konfiguracja — celem jest zbadanie skutków wyboru.</p>
-      <div class="guard"><strong>S0 — stałe zabezpieczenie równej godności</strong><br>Wiek, zawód, płeć, status i sprawność nie mogą być używane do hierarchizowania wartości życia. S0 działa w każdej konfiguracji i nie podlega zmianie priorytetu.</div>
+      <div class="guard"><strong>S0 – stałe zabezpieczenie nr 0 <span class="mini">(od ang. <em>Safeguard 0</em>)</span></strong><br>Litera S pochodzi od ang. <em>safeguard</em> („zabezpieczenie”), a cyfra 0 oznacza, że warstwa działa przed regułami R1–R6. S0 nie podlega zmianie ani przesuwaniu w hierarchii. Wiek, zawód, płeć, status i sprawność nie mogą być używane do hierarchizowania wartości życia.</div>
       <div class="notice">Wybrano: <span id="count" class="counter">0</span>/3. Wybierz trzy reguły decyzyjne, które będą działały po zastosowaniu zabezpieczenia S0.</div>
       <div id="rules" class="rules"></div>
       <div class="actions"><button class="btn danger" id="reset1">Wyczyść wybór</button><div class="right"><button class="btn primary" id="to2" disabled>Dalej: ustaw priorytety</button></div></div>
@@ -129,7 +129,7 @@
       <div class="actions"><button class="btn" id="copyPrompt">Kopiuj prompt</button><div class="right"><button class="btn" onclick="window.print()">Drukuj / zapisz jako PDF</button><button class="btn secondary" id="downloadReport">Pobierz raport HTML</button><button class="btn danger" id="restart">Zacznij od nowa</button></div></div>
     </section>
   </main>
-  <div class="footer">Autorskie narzędzie dydaktyczne Łukasza Szymańskiego • wersja 2.1 • dane pozostają na urządzeniu użytkownika</div>
+  <div class="footer">Autorskie narzędzie dydaktyczne Łukasza Szymańskiego • wersja 2.2 • dane pozostają na urządzeniu użytkownika</div>
 </div>
 <div id="toast" class="toast" role="status"></div>
 
@@ -137,8 +137,10 @@
 'use strict';
 const SAFEGUARD = {
  id:'S0',
+ label:'Stałe zabezpieczenie nr 0',
+ origin:'Safeguard 0',
  name:'Nie różnicuj wartości życia według cech osobowych',
- desc:'Stałe zabezpieczenie odrzuca wiek, zawód, płeć, status i sprawność jako kryteria hierarchizowania wartości życia.'
+ desc:'Litera S pochodzi od ang. safeguard (zabezpieczenie), a cyfra 0 oznacza, że warstwa działa przed regułami R1–R6. S0 nie podlega zmianie ani przesuwaniu w hierarchii i odrzuca wiek, zawód, płeć, status oraz sprawność jako kryteria hierarchizowania wartości życia.'
 };
 
 const RULES = [
@@ -186,7 +188,7 @@ function renderOrder(){
 function move(i,d){const j=i+d;[selected[i],selected[j]]=[selected[j],selected[i]];renderOrder();saveLocal()}
 function signature(sel=selected){return sel.join('>')}
 function pseudocode(sel=selected){
- let out=['START','',`S0 — STAŁE ZABEZPIECZENIE: ${SAFEGUARD.name}`,'  USUŃ cechy osobowe z danych dopuszczalnych do podejmowania decyzji.','  JEŻELI po ich usunięciu warianty są równoważne → OZNACZ „NIEROZSTRZYGNIĘTE — S0”.'];
+ let out=['START','',`S0 — STAŁE ZABEZPIECZENIE NR 0 (ANG. SAFEGUARD 0): ${SAFEGUARD.name}`,'  USUŃ cechy osobowe z danych dopuszczalnych do podejmowania decyzji.','  JEŻELI po ich usunięciu warianty są równoważne → OZNACZ „NIEROZSTRZYGNIĘTE — S0”.'];
  sel.forEach((id,i)=>{const r=rule(id);out.push('',`PRIORYTET ${i+1} — ${r.id}: ${r.name}`,`  ${r.pseudo}`,'  JEŻELI zasada jednoznacznie rozstrzyga → ZAPISZ decyzję i PRZEJDŹ do kontroli konfliktów.','  W PRZECIWNYM RAZIE → sprawdź kolejny priorytet.');});
  out.push('','KONTROLA KONFLIKTÓW:','  Sprawdź, czy późniejsza wybrana reguła preferuje wariant przeciwny.','  JEŻELI tak → OZNACZ konflikt, ale zachowaj decyzję reguły o wyższym priorytecie.','','JEŻELI żadna reguła nie rozstrzyga:','  JEŻELI S0 wykryło równoważność po odrzuceniu cech osobowych → ZWRÓĆ „NIEROZSTRZYGNIĘTE — S0”.','  W PRZECIWNYM RAZIE → ZWRÓĆ „NIEROZSTRZYGNIĘTE”.','STOP');
  return out.join('\n');
@@ -281,7 +283,7 @@ function summary(sel,res){return CASES.map((c,i)=>`${c.id}: ${resultCode(res[i])
 function aiPromptText(){return `Jesteś krytycznym audytorem przejrzystego modelu regułowego, a nie arbitrem moralnym.
 
 STAŁE ZABEZPIECZENIE
-S0 — ${SAFEGUARD.name}.
+S0 — stałe zabezpieczenie nr 0 (ang. Safeguard 0): ${SAFEGUARD.name}.
 
 MODEL PO DEBUGOWANIU
 Priorytety: ${selected.map((id,i)=>`${i+1}. ${id} — ${rule(id).name}`).join('; ')}
@@ -311,7 +313,7 @@ function buildReport(){
  if(!validateReportFields())return;
  const fields={studentCode:$('#studentCode').value.trim(),changeWhat:$('#changeWhat').value.trim(),changeWhy:$('#changeWhy').value.trim(),newProblem:$('#newProblem').value.trim(),reflection:$('#reflection').value.trim()};
  reportData={baseline,current:{selected:[...selected],results:currentResults,pseudo:pseudocode(),sig:signature()},fields,date:new Date().toLocaleString('pl-PL')};
- const configCard=(sel,pseudo,title)=>`<div class="report-card"><h3>${title}</h3><p><strong>Stałe zabezpieczenie:</strong><br>S0 — ${safe(SAFEGUARD.name)}</p><p><strong>Priorytety reguł:</strong><br>${sel.map((id,i)=>`${i+1}. ${id} — ${safe(rule(id).name)}`).join('<br>')}</p><details><summary>Pseudokod</summary><pre>${safe(pseudo)}</pre></details><div class="signature">${safe(signature(sel))}</div></div>`;
+ const configCard=(sel,pseudo,title)=>`<div class="report-card"><h3>${title}</h3><p><strong>Stałe zabezpieczenie:</strong><br><strong>S0 – ${safe(SAFEGUARD.label)}</strong> (od ang. <em>${safe(SAFEGUARD.origin)}</em>)<br>${safe(SAFEGUARD.name)}</p><p><strong>Priorytety reguł:</strong><br>${sel.map((id,i)=>`${i+1}. ${id} — ${safe(rule(id).name)}`).join('<br>')}</p><details><summary>Pseudokod</summary><pre>${safe(pseudo)}</pre></details><div class="signature">${safe(signature(sel))}</div></div>`;
  $('#report').innerHTML=`<div class="notice ok"><strong>Kod ucznia:</strong> ${safe(fields.studentCode)} &nbsp; <strong>Data:</strong> ${safe(reportData.date)}<br><span class="mini">Po zapisaniu przekaż raport w miejscu wskazanym przez nauczyciela.</span></div><div class="report-grid">${configCard(baseline.selected,baseline.pseudo,'Konfiguracja V1 — przed debugowaniem')}${configCard(selected,pseudocode(),'Konfiguracja V2 — po debugowaniu')}</div>${testsTable(baseline.results,'Pełne wyniki testów — V1')}${testsTable(currentResults,'Pełne wyniki testów — V2')}${comparisonTableHtml()}<div class="report-card"><h3>Refleksja i uzasadnienie debugowania</h3><p><strong>Co zmieniłem:</strong> ${safe(fields.changeWhat)}</p><p><strong>Problem, który chciałem rozwiązać:</strong> ${safe(fields.changeWhy)}</p><p><strong>Nowy problem lub skutek uboczny:</strong> ${safe(fields.newProblem)}</p><p><strong>Wniosek końcowy:</strong> ${safe(fields.reflection)}</p></div>`;
  $('#aiPrompt').textContent=aiPromptText();$('#promptPanel').classList.toggle('print-enabled',$('#includePrompt').checked);showStep(6);saveLocal();
 }
