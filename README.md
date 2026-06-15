@@ -1,32 +1,36 @@
 # Etyczny Kompilator AI
 
-Interaktywne narzędzie edukacyjne do projektowania, testowania i debugowania przejrzystego modelu regułowego. Aplikacja działa w całości w przeglądarce i nie wymaga logowania, instalacji, serwera ani bazy danych.
+Autorskie narzędzie edukacyjne do projektowania, testowania i debugowania priorytetowego modelu regułowego podczas lekcji informatyki.
+
+## Aplikacja online
+
+https://ethicsandschool-lgtm.github.io/etyczny-kompilator-ai/
+
+## Architektura dydaktyczna
+
+- **S0 — stałe zabezpieczenie antydyskryminacyjne**: odrzuca cechy osobowe jako kryterium wartościowania życia;
+- wybór trzech spośród sześciu reguł decyzyjnych;
+- hierarchia priorytetów i generowanie pseudokodu;
+- cztery autorskie przypadki testowe;
+- ślad decyzyjny, konflikty i chronione nierozstrzygnięcie;
+- zapis V1, debugowanie i utworzenie V2;
+- pełne tabele wyników i automatyczne porównanie wersji;
+- raport ucznia oraz prompt do opcjonalnego audytu generatywnej AI.
 
 ## Uruchomienie lokalne
 
-1. Pobierz plik `index.html`.
-2. Otwórz go w aktualnej wersji Chrome, Edge, Firefox lub Safari.
-3. Wszystkie dane pozostają na urządzeniu użytkownika.
-
-## Publikacja w GitHub Pages
-
-1. Utwórz bezpłatne konto w GitHub.
-2. Utwórz publiczne repozytorium, np. `etyczny-kompilator-ai`.
-3. Wgraj do niego zawartość tego folderu.
-4. Otwórz `Settings` → `Pages`.
-5. W części `Build and deployment` wybierz `Deploy from a branch`.
-6. Wybierz gałąź `main` oraz folder `/ (root)` i zapisz.
-7. Po opublikowaniu strona będzie dostępna pod adresem podobnym do:
-   `https://NAZWA-UZYTKOWNIKA.github.io/etyczny-kompilator-ai/`
+Pobierz `index.html` i otwórz go w aktualnej wersji Chrome, Edge, Firefox lub Safari. Aplikacja nie wymaga serwera, bazy danych ani logowania.
 
 ## Prywatność
 
-Aplikacja nie zapisuje danych na serwerze i nie wymaga danych osobowych. Raport jest generowany lokalnie w przeglądarce.
+Przetwarzanie odbywa się lokalnie w przeglądarce. Aplikacja nie zawiera reklam, trackerów ani zewnętrznych bibliotek i nie przesyła danych ucznia na serwer.
 
-## Informacja techniczna
+## Autor projektu
 
-Aplikacja jest pojedynczym plikiem HTML zawierającym kod HTML, CSS i JavaScript. Nie korzysta z zewnętrznych bibliotek ani płatnych usług.
+Autor koncepcji, specyfikacji funkcjonalnej i projektu dydaktycznego: **Łukasz Szymański**.
 
-## Autor i licencja
+W technicznej implementacji wykorzystano generatywną AI jako narzędzie wspomagające przełożenie autorskiej specyfikacji na kod HTML, CSS i JavaScript. Ostateczna logika, testy, decyzje metodyczne, weryfikacja oraz publikacja projektu pozostają pod kontrolą autora.
 
-Przed publiczną publikacją uzupełnij informację o autorze oraz zdecyduj o warunkach udostępniania kodu.
+## Prawa
+
+Repozytorium nie jest objęte licencją open source. Wszelkie prawa zastrzeżone. Szczegóły: `PRAWA_AUTORSKIE.txt`.

@@ -42,7 +42,7 @@
     .order-list{display:grid;gap:12px}.order-item{display:grid;grid-template-columns:54px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:13px;background:#fbfcfe}.rank{width:42px;height:42px;border-radius:12px;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:900}.order-item strong{display:block}.order-item small{color:var(--muted)}.move{display:flex;gap:6px}.iconbtn{border:1px solid var(--line);background:#fff;border-radius:10px;width:38px;height:38px;font-weight:900;color:var(--accent)}
     pre{white-space:pre-wrap;word-break:break-word;background:#101827;color:#d9e7ff;border-radius:15px;padding:18px;line-height:1.5;overflow:auto;font-family:"SFMono-Regular",Consolas,monospace;font-size:.9rem}
     .tests{display:grid;gap:16px}.case{border:1px solid var(--line);border-radius:16px;padding:17px;background:#fff}.case h3{margin:0 0 6px}.case .desc{color:var(--muted);line-height:1.45}.options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.option{background:#f6f8fc;border-radius:12px;padding:11px;border:1px solid #e5eaf2}.result{margin-top:13px;border-radius:13px;padding:14px;background:#eef7ff;border-left:4px solid var(--accent)}.result.conflict{background:#fff4e8;border-color:#e98b2a}.result.unresolved{background:#f2efff;border-color:#765ad9}.trace{margin:10px 0 0;padding-left:18px;color:#3d4a5f}.trace li{margin:5px 0}.conflict-list{margin-top:8px;color:#7a3f00}
-    .compare{overflow:auto}.compare table,.rubric{width:100%;border-collapse:collapse}.compare th,.compare td,.rubric th,.rubric td{border:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.compare th,.rubric th{background:#edf2fb}.changed{background:#fff6dc}.same{background:#eff9f4}
+    .compare{overflow:auto}.compare table,.rubric,.report-table{width:100%;border-collapse:collapse}.compare th,.compare td,.rubric th,.rubric td,.report-table th,.report-table td{border:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.compare th,.rubric th,.report-table th{background:#edf2fb}.changed{background:#fff6dc}.same{background:#eff9f4}.guard{background:#f3efff;border-left:4px solid #765ad9;border-radius:12px;padding:12px 14px;margin:12px 0}.guard strong{color:#563aa8}.status-pill{display:inline-block;border-radius:999px;padding:3px 8px;font-size:.75rem;font-weight:800;background:#eef2f7;color:#475467}.status-pill.guard-pill{background:#eee8ff;color:#5a40a8}.status-pill.conflict-pill{background:#fff0dc;color:#8a4c00}
     .fields{display:grid;gap:12px;margin-top:16px}.fields label{font-weight:800}.fields textarea,.fields input{width:100%;border:1px solid #bdc8d8;border-radius:11px;padding:11px;background:#fff;min-height:44px}.fields textarea{min-height:88px;resize:vertical}
     .report-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.report-card{border:1px solid var(--line);border-radius:15px;padding:15px;background:#fbfcfe}.report-card h3{margin-top:0}.mini{color:var(--muted);font-size:.88rem;line-height:1.45}.signature{font-family:monospace;background:#eef3ff;padding:9px;border-radius:9px;word-break:break-all}
     .hidden{display:none!important}.footer{text-align:center;color:var(--muted);font-size:.8rem;padding:8px 0 24px}.versionbar{display:none;background:#fff2cd;border:1px solid #f0cf68;color:#684f00;padding:11px 14px;border-radius:12px;margin-bottom:14px;font-weight:700}.versionbar.show{display:block}
@@ -61,7 +61,7 @@
   <section class="hero">
     <div class="badge">Lekcja informatyki • system regułowy • krytyczna alfabetyzacja AI</div>
     <h2>Zamień wartości w reguły. Przetestuj skutki. Zdebuguj model.</h2>
-    <p>To narzędzie nie jest modelem uczącym się. Jest przejrzystym silnikiem regułowym, który pokazuje, jak dobór i kolejność zasad wpływają na decyzje systemu.</p>
+    <p>To narzędzie nie jest modelem uczącym się. Jest przejrzystym silnikiem regułowym z niezmiennym zabezpieczeniem antydyskryminacyjnym S0, który pokazuje, jak dobór i kolejność reguł wpływają na decyzje systemu.</p>
   </section>
 
   <div id="versionbar" class="versionbar">Tryb debugowania: tworzysz wersję 2. Zmień co najmniej jedną zasadę lub jej priorytet.</div>
@@ -74,7 +74,8 @@
     <section class="panel" id="step1">
       <h2>1. Wybierz dokładnie trzy zasady</h2>
       <p class="lead">Twój model będzie stosował zasady w kolejności priorytetów. Nie istnieje automatycznie „moralnie poprawna” konfiguracja — celem jest zbadanie skutków wyboru.</p>
-      <div class="notice">Wybrano: <span id="count" class="counter">0</span>/3. Zasada równej godności działa jako zabezpieczenie: zakazuje używania cech osobowych jako kryterium wartości życia.</div>
+      <div class="guard"><strong>S0 — stałe zabezpieczenie równej godności</strong><br>Wiek, zawód, płeć, status i sprawność nie mogą być używane do hierarchizowania wartości życia. S0 działa w każdej konfiguracji i nie podlega zmianie priorytetu.</div>
+      <div class="notice">Wybrano: <span id="count" class="counter">0</span>/3. Wybierz trzy reguły decyzyjne, które będą działały po zastosowaniu zabezpieczenia S0.</div>
       <div id="rules" class="rules"></div>
       <div class="actions"><button class="btn danger" id="reset1">Wyczyść wybór</button><div class="right"><button class="btn primary" id="to2" disabled>Dalej: ustaw priorytety</button></div></div>
     </section>
@@ -96,7 +97,7 @@
 
     <section class="panel hidden" id="step4">
       <h2>4. Testy i ślad decyzyjny</h2>
-      <p class="lead">Każdy przypadek ma dwa warianty. Model pokazuje decyzję, pierwszą regułę rozstrzygającą oraz sprzeciw późniejszych reguł.</p>
+      <p class="lead">Każdy przypadek ma dwa warianty. Model najpierw stosuje stałe zabezpieczenie S0, a następnie pokazuje decyzję, pierwszą regułę rozstrzygającą oraz sprzeciw późniejszych reguł.</p>
       <div id="tests" class="tests"></div>
       <div class="actions"><button class="btn" data-back="3">Wstecz</button><div class="right"><button class="btn secondary" id="runTests">Uruchom wszystkie testy</button><button class="btn primary hidden" id="debugBtn">Zapisz wersję 1 i debuguj</button><button class="btn primary hidden" id="compareBtn">Porównaj wersje</button></div></div>
     </section>
@@ -106,7 +107,7 @@
       <p class="lead">Sprawdź, co zmieniła korekta modelu. Naprawienie jednego przypadku może stworzyć nowy problem w innym.</p>
       <div id="comparison" class="compare"></div>
       <div class="fields">
-        <div><label for="studentCode">Kod ucznia (opcjonalny, bez danych osobowych)</label><input id="studentCode" maxlength="30" placeholder="np. U17" /></div>
+        <div><label for="studentCode">Kod ucznia (bez danych osobowych)</label><input id="studentCode" maxlength="30" placeholder="np. U17" /></div>
         <div><label for="changeWhat">Co zmieniłem w modelu?</label><textarea id="changeWhat" placeholder="Np. zamieniłem priorytet R1 z R3..."></textarea></div>
         <div><label for="changeWhy">Jaki problem chciałem rozwiązać?</label><textarea id="changeWhy" placeholder="Opisz konflikt lub niepożądany wynik wersji 1."></textarea></div>
         <div><label for="newProblem">Czy po zmianie pojawił się nowy problem?</label><textarea id="newProblem" placeholder="Wskaż skutek uboczny albo napisz, że go nie zauważyłeś."></textarea></div>
@@ -117,22 +118,28 @@
 
     <section class="panel hidden" id="step6">
       <h2>6. Raport ucznia</h2>
-      <p class="lead">Raport dokumentuje model przed debugowaniem i po nim, wyniki testów oraz refleksję ucznia.</p>
+      <p class="lead">Raport dokumentuje konfiguracje V1 i V2, pełne wyniki testów, reguły rozstrzygające, konflikty, działanie S0, tabelę porównawczą i refleksję ucznia. Po zapisaniu przekaż plik w miejscu wskazanym przez nauczyciela.</p>
       <div id="report"></div>
       <h3>Prompt do krytycznego audytu generatywnej AI</h3>
       <pre id="aiPrompt"></pre>
       <div class="actions"><button class="btn" id="copyPrompt">Kopiuj prompt</button><div class="right"><button class="btn" onclick="window.print()">Drukuj / zapisz jako PDF</button><button class="btn secondary" id="downloadReport">Pobierz raport HTML</button><button class="btn danger" id="restart">Zacznij od nowa</button></div></div>
     </section>
   </main>
-  <div class="footer">Autorskie narzędzie dydaktyczne • wersja offline • dane pozostają na urządzeniu użytkownika</div>
+  <div class="footer">Autorskie narzędzie dydaktyczne Łukasza Szymańskiego • wersja 2.0 • dane pozostają na urządzeniu użytkownika</div>
 </div>
 <div id="toast" class="toast" role="status"></div>
 
 <script>
 'use strict';
+const SAFEGUARD = {
+ id:'S0',
+ name:'Nie różnicuj wartości życia według cech osobowych',
+ desc:'Stałe zabezpieczenie odrzuca wiek, zawód, płeć, status i sprawność jako kryteria hierarchizowania wartości życia.'
+};
+
 const RULES = [
- {id:'R1',name:'Minimalizuj przewidywaną liczbę ofiar',type:'konsekwencjalna',desc:'Wybierz wariant o mniejszej oczekiwanej liczbie ofiar śmiertelnych.',pseudo:'JEŻELI warianty różnią się oczekiwaną liczbą ofiar, WYBIERZ wariant z mniejszą wartością.'},
- {id:'R2',name:'Nie różnicuj wartości życia według cech osobowych',type:'zabezpieczenie',desc:'Ignoruj wiek, zawód, płeć, status i sprawność jako podstawę hierarchizowania życia.',pseudo:'POMIŃ wiek, zawód, płeć, status i sprawność jako kryteria wartości życia.'},
+ {id:'R1',name:'Minimalizuj przewidywaną liczbę ofiar śmiertelnych',type:'konsekwencjalna',desc:'Wybierz wariant o mniejszej oczekiwanej liczbie ofiar śmiertelnych.',pseudo:'JEŻELI warianty różnią się oczekiwaną liczbą ofiar śmiertelnych, WYBIERZ wariant z mniejszą wartością.'},
+ {id:'R2',name:'Minimalizuj przewidywaną liczbę osób ciężko poszkodowanych',type:'minimalizacja szkody',desc:'Uwzględnij łącznie ofiary śmiertelne i osoby ciężko ranne.',pseudo:'JEŻELI warianty różnią się przewidywaną liczbą osób ciężko poszkodowanych, WYBIERZ wariant z mniejszą wartością.'},
  {id:'R3',name:'Unikaj aktywnego skierowania pojazdu na człowieka',type:'deontologiczna',desc:'Preferuj wariant, który nie wymaga aktywnego manewru kierującego pojazd na osobę.',pseudo:'JEŻELI tylko jeden wariant wymaga aktywnego skierowania pojazdu na człowieka, WYBIERZ drugi wariant.'},
  {id:'R4',name:'Chroń uczestników przestrzegających przepisów',type:'reguła prawna',desc:'Preferuj wariant powodujący mniejszą liczbę ofiar wśród osób przestrzegających zasad ruchu.',pseudo:'JEŻELI warianty różnią się liczbą ofiar przestrzegających przepisów, WYBIERZ wariant z mniejszą liczbą.'},
  {id:'R5',name:'Chroń pasażerów pojazdu',type:'lojalność systemu',desc:'Preferuj wariant minimalizujący liczbę ofiar wśród pasażerów.',pseudo:'JEŻELI warianty różnią się liczbą ofiar wśród pasażerów, WYBIERZ wariant z mniejszą liczbą.'},
@@ -141,17 +148,17 @@ const RULES = [
 
 const CASES = [
  {id:'T1',title:'Bariera czy manewr',desc:'System utracił hamowanie. Może utrzymać tor jazdy albo aktywnie zjechać na pas awaryjny.',
-  A:{label:'Utrzymaj tor jazdy',text:'Zderzenie z barierą; zagrożeni są pasażerowie.',expectedDeaths:2,worstCaseDeaths:2,activeHarm:false,passengerDeaths:2,lawAbidingDeaths:2,traits:[]},
-  B:{label:'Aktywnie zmień tor',text:'Manewr na pas awaryjny; zagrożona jest jedna osoba.',expectedDeaths:1,worstCaseDeaths:1,activeHarm:true,passengerDeaths:0,lawAbidingDeaths:1,traits:[]}},
- {id:'T2',title:'Przejście i czerwone światło',desc:'Warianty różnią się liczbą ofiar oraz przestrzeganiem przepisów.',
-  A:{label:'Jedź prosto',text:'Zagrożone są dwie osoby, które weszły na czerwonym świetle.',expectedDeaths:2,worstCaseDeaths:2,activeHarm:false,passengerDeaths:0,lawAbidingDeaths:0,traits:[]},
-  B:{label:'Wykonaj manewr',text:'Zagrożona jest jedna osoba przechodząca prawidłowo.',expectedDeaths:1,worstCaseDeaths:1,activeHarm:true,passengerDeaths:0,lawAbidingDeaths:1,traits:[]}},
- {id:'T3',title:'Niepewny odczyt czujników',desc:'Mniejsza wartość oczekiwana koliduje z mniejszym najgorszym możliwym skutkiem.',
-  A:{label:'Nagłe hamowanie',text:'Oczekiwana strata jest niższa, ale w najgorszym wariancie mogą zginąć trzy osoby.',expectedDeaths:0.4,worstCaseDeaths:3,activeHarm:false,passengerDeaths:0.4,lawAbidingDeaths:0.4,traits:[]},
-  B:{label:'Kontrolowane ominięcie',text:'Oczekiwana strata jest wyższa, ale najgorszy możliwy skutek to jedna ofiara.',expectedDeaths:0.6,worstCaseDeaths:1,activeHarm:true,passengerDeaths:0,lawAbidingDeaths:0.6,traits:[]}},
- {id:'T4',title:'Cechy osób a równa godność',desc:'Liczby i warunki są identyczne. Różnią się wyłącznie opisy osób.',
-  A:{label:'Wariant A',text:'Zagrożona jest jedna młoda lekarka.',expectedDeaths:1,worstCaseDeaths:1,activeHarm:true,passengerDeaths:0,lawAbidingDeaths:1,traits:['wiek','zawód']},
-  B:{label:'Wariant B',text:'Zagrożony jest jeden starszy bezrobotny mężczyzna.',expectedDeaths:1,worstCaseDeaths:1,activeHarm:true,passengerDeaths:0,lawAbidingDeaths:1,traits:['wiek','zawód','status']}}
+  A:{label:'Utrzymaj tor jazdy',text:'Zderzenie z barierą: przewidywane są 2 ofiary śmiertelne wśród pasażerów.',expectedDeaths:2,severeHarm:2,worstCaseDeaths:2,activeHarm:false,passengerDeaths:2,lawAbidingDeaths:2,traits:[]},
+  B:{label:'Aktywnie zmień tor',text:'Manewr na pas awaryjny: przewidywana jest 1 ofiara śmiertelna i 3 osoby ciężko ranne.',expectedDeaths:1,severeHarm:4,worstCaseDeaths:1,activeHarm:true,passengerDeaths:0,lawAbidingDeaths:1,traits:[]}},
+ {id:'T2',title:'Przejście i czerwone światło',desc:'Warianty różnią się liczbą ofiar, ciężkich obrażeń oraz przestrzeganiem przepisów.',
+  A:{label:'Jedź prosto',text:'Zagrożone są 2 osoby, które weszły na czerwonym świetle.',expectedDeaths:2,severeHarm:2,worstCaseDeaths:2,activeHarm:false,passengerDeaths:0,lawAbidingDeaths:0,traits:[]},
+  B:{label:'Wykonaj manewr',text:'Zagrożona jest 1 osoba przechodząca prawidłowo, a 2 inne osoby mogą odnieść ciężkie obrażenia.',expectedDeaths:1,severeHarm:3,worstCaseDeaths:1,activeHarm:true,passengerDeaths:0,lawAbidingDeaths:1,traits:[]}},
+ {id:'T3',title:'Niepewny odczyt czujników',desc:'Mniejsza oczekiwana liczba ofiar śmiertelnych koliduje z mniejszą liczbą ciężko poszkodowanych i mniejszym najgorszym skutkiem.',
+  A:{label:'Nagłe hamowanie',text:'Oczekiwana liczba ofiar śmiertelnych jest niższa, lecz przewidywanych jest łącznie 2,4 ciężko poszkodowanych, a w najgorszym wariancie mogą zginąć 3 osoby.',expectedDeaths:0.4,severeHarm:2.4,worstCaseDeaths:3,activeHarm:false,passengerDeaths:0.4,lawAbidingDeaths:0.4,traits:[]},
+  B:{label:'Kontrolowane ominięcie',text:'Oczekiwana liczba ofiar śmiertelnych jest wyższa, lecz przewidywanych jest łącznie 1,2 ciężko poszkodowanych, a najgorszy możliwy skutek to 1 ofiara.',expectedDeaths:0.6,severeHarm:1.2,worstCaseDeaths:1,activeHarm:true,passengerDeaths:0,lawAbidingDeaths:0.6,traits:[]}},
+ {id:'T4',title:'Cechy osób a równa godność',desc:'Wszystkie dopuszczalne dane są identyczne. Różnią się wyłącznie opisy osób, których S0 nie pozwala użyć do rozstrzygnięcia.',
+  A:{label:'Wariant A',text:'Zagrożona jest jedna młoda lekarka.',expectedDeaths:1,severeHarm:1,worstCaseDeaths:1,activeHarm:true,passengerDeaths:0,lawAbidingDeaths:1,traits:['wiek','zawód']},
+  B:{label:'Wariant B',text:'Zagrożony jest jeden starszy bezrobotny mężczyzna.',expectedDeaths:1,severeHarm:1,worstCaseDeaths:1,activeHarm:true,passengerDeaths:0,lawAbidingDeaths:1,traits:['wiek','zawód','status']}}
 ];
 
 let selected=[]; let currentResults=null; let baseline=null; let isDebug=false; let reportData=null;
@@ -175,14 +182,26 @@ function renderOrder(){
 function move(i,d){const j=i+d;[selected[i],selected[j]]=[selected[j],selected[i]];renderOrder();saveLocal()}
 function signature(sel=selected){return sel.join('>')}
 function pseudocode(sel=selected){
- let out=['START','USTAW: wynik = NIERozstrzygnięty'];sel.forEach((id,i)=>{const r=rule(id);out.push('',`PRIORYTET ${i+1} — ${r.id}: ${r.name}`,`  ${r.pseudo}`,'  JEŻELI zasada jednoznacznie rozstrzyga → ZAPISZ decyzję i PRZEJDŹ do kontroli konfliktów.','  W PRZECIWNYM RAZIE → sprawdź kolejny priorytet.');});out.push('','KONTROLA KONFLIKTÓW:','  Sprawdź, czy późniejsza wybrana zasada preferuje wariant przeciwny.','  JEŻELI tak → OZNACZ konflikt, ale zachowaj decyzję zasady o wyższym priorytecie.','','JEŻELI żadna zasada nie rozstrzyga → ZWRÓĆ „NIEROZSTRZYGNIĘTE”.','STOP');return out.join('\n');
+ let out=['START','',`S0 — STAŁE ZABEZPIECZENIE: ${SAFEGUARD.name}`,'  USUŃ cechy osobowe z danych dopuszczalnych do podejmowania decyzji.','  JEŻELI po ich usunięciu warianty są równoważne → OZNACZ „NIEROZSTRZYGNIĘTE — S0”.'];
+ sel.forEach((id,i)=>{const r=rule(id);out.push('',`PRIORYTET ${i+1} — ${r.id}: ${r.name}`,`  ${r.pseudo}`,'  JEŻELI zasada jednoznacznie rozstrzyga → ZAPISZ decyzję i PRZEJDŹ do kontroli konfliktów.','  W PRZECIWNYM RAZIE → sprawdź kolejny priorytet.');});
+ out.push('','KONTROLA KONFLIKTÓW:','  Sprawdź, czy późniejsza wybrana reguła preferuje wariant przeciwny.','  JEŻELI tak → OZNACZ konflikt, ale zachowaj decyzję reguły o wyższym priorytecie.','','JEŻELI żadna reguła nie rozstrzyga:','  JEŻELI S0 wykryło równoważność po odrzuceniu cech osobowych → ZWRÓĆ „NIEROZSTRZYGNIĘTE — S0”.','  W PRZECIWNYM RAZIE → ZWRÓĆ „NIEROZSTRZYGNIĘTE”.','STOP');
+ return out.join('\n');
 }
 
+function sameAdmissible(A,B){
+ const keys=['expectedDeaths','severeHarm','worstCaseDeaths','activeHarm','passengerDeaths','lawAbidingDeaths'];
+ return keys.every(k=>A[k]===B[k]);
+}
+function evalSafeguard(c){
+ const traitsPresent=(c.A.traits.length||c.B.traits.length)>0;
+ const protectedTie=traitsPresent&&sameAdmissible(c.A,c.B);
+ return {id:'S0',active:traitsPresent,protectedTie,note:protectedTie?'cechy osobowe zostały odrzucone, a po ich pominięciu brak dopuszczalnego kryterium rozstrzygającego':traitsPresent?'cechy osobowe zostały pominięte; decyzja może opierać się wyłącznie na dopuszczalnych danych':'w przypadku nie występują cechy osobowe wymagające odrzucenia'};
+}
 function evalRule(id,c){const A=c.A,B=c.B;
  const less=(x,y)=>x<y?'A':y<x?'B':null;
  switch(id){
-  case 'R1': return {pref:less(A.expectedDeaths,B.expectedDeaths),note:`oczekiwane ofiary: A=${fmt(A.expectedDeaths)}, B=${fmt(B.expectedDeaths)}`};
-  case 'R2': return {pref:null,note:(A.traits.length||B.traits.length)?'cechy osobowe zostały pominięte jako kryterium wartości życia':'brak cech osobowych istotnych dla zabezpieczenia'};
+  case 'R1': return {pref:less(A.expectedDeaths,B.expectedDeaths),note:`oczekiwane ofiary śmiertelne: A=${fmt(A.expectedDeaths)}, B=${fmt(B.expectedDeaths)}`};
+  case 'R2': return {pref:less(A.severeHarm,B.severeHarm),note:`przewidywane osoby ciężko poszkodowane: A=${fmt(A.severeHarm)}, B=${fmt(B.severeHarm)}`};
   case 'R3': return {pref:A.activeHarm===B.activeHarm?null:(A.activeHarm?'B':'A'),note:`aktywny manewr: A=${A.activeHarm?'tak':'nie'}, B=${B.activeHarm?'tak':'nie'}`};
   case 'R4': return {pref:less(A.lawAbidingDeaths,B.lawAbidingDeaths),note:`ofiary przestrzegające przepisów: A=${fmt(A.lawAbidingDeaths)}, B=${fmt(B.lawAbidingDeaths)}`};
   case 'R5': return {pref:less(A.passengerDeaths,B.passengerDeaths),note:`ofiary wśród pasażerów: A=${fmt(A.passengerDeaths)}, B=${fmt(B.passengerDeaths)}`};
@@ -190,15 +209,23 @@ function evalRule(id,c){const A=c.A,B=c.B;
  }
 }
 function decide(c,sel=selected){
+ const safeguard=evalSafeguard(c);
  const evaluations=sel.map(id=>({id,...evalRule(id,c)}));
  const first=evaluations.find(e=>e.pref);const choice=first?first.pref:null;
  const conflicts=choice?evaluations.filter(e=>e.pref&&e.pref!==choice).map(e=>e.id):[];
- return {caseId:c.id,choice,decidingRule:first?first.id:null,evaluations,conflicts};
+ const status=choice?'decision':safeguard.protectedTie?'protected_unresolved':'unresolved';
+ return {caseId:c.id,choice,decidingRule:first?first.id:null,evaluations,conflicts,safeguard,status};
 }
 function runAll(sel=selected){return CASES.map(c=>decide(c,sel))}
 function choiceLabel(c,res){return res.choice?`${res.choice}: ${c[res.choice].label}`:'NIEROZSTRZYGNIĘTE'}
+function resultHeading(c,r){
+ if(r.choice)return `Decyzja modelu: ${choiceLabel(c,r)}`;
+ if(r.status==='protected_unresolved')return 'NIEROZSTRZYGNIĘTE — zabezpieczenie S0 odrzuciło cechy osobowe';
+ return 'NIEROZSTRZYGNIĘTE';
+}
+function conflictText(r){return r.conflicts.length?r.conflicts.map(x=>`${x} (${rule(x).name})`).join('; '):'brak';}
 function renderTests(results=null){
- const box=$('#tests');box.innerHTML='';CASES.forEach((c,idx)=>{const d=document.createElement('article');d.className='case';let out=`<h3>${c.id}. ${c.title}</h3><div class="desc">${c.desc}</div><div class="options"><div class="option"><strong>A. ${c.A.label}</strong><div class="mini">${c.A.text}</div></div><div class="option"><strong>B. ${c.B.label}</strong><div class="mini">${c.B.text}</div></div></div>`;if(results){const r=results[idx],cls=!r.choice?' unresolved':r.conflicts.length?' conflict':'';out+=`<div class="result${cls}"><strong>Decyzja modelu: ${choiceLabel(c,r)}</strong><div class="mini">${r.decidingRule?`Rozstrzygnęła reguła ${r.decidingRule}: ${rule(r.decidingRule).name}`:'Żadna z wybranych reguł nie rozstrzygnęła przypadku.'}</div><ol class="trace">${r.evaluations.map(e=>`<li><strong>${e.id}</strong>: ${e.pref?`preferuje ${e.pref}`:'nie rozstrzyga'} — ${e.note}</li>`).join('')}</ol>${r.conflicts.length?`<div class="conflict-list"><strong>Konflikt:</strong> ${r.conflicts.map(x=>`${x} (${rule(x).name})`).join('; ')} preferuje wariant przeciwny.</div>`:''}</div>`}d.innerHTML=out;box.appendChild(d)});
+ const box=$('#tests');box.innerHTML='';CASES.forEach((c,idx)=>{const d=document.createElement('article');d.className='case';let out=`<h3>${c.id}. ${c.title}</h3><div class="desc">${c.desc}</div><div class="options"><div class="option"><strong>A. ${c.A.label}</strong><div class="mini">${c.A.text}</div></div><div class="option"><strong>B. ${c.B.label}</strong><div class="mini">${c.B.text}</div></div></div>`;if(results){const r=results[idx],cls=!r.choice?' unresolved':r.conflicts.length?' conflict':'';out+=`<div class="result${cls}"><strong>${resultHeading(c,r)}</strong><div class="mini">${r.decidingRule?`Rozstrzygnęła reguła ${r.decidingRule}: ${rule(r.decidingRule).name}`:r.status==='protected_unresolved'?'Brak dopuszczalnego kryterium po odrzuceniu cech osobowych.':'Żadna z wybranych reguł nie rozstrzygnęła przypadku.'}</div><ol class="trace"><li><strong>S0</strong>: ${r.safeguard.note}</li>${r.evaluations.map(e=>`<li><strong>${e.id}</strong>: ${e.pref?`preferuje ${e.pref}`:'nie rozstrzyga'} — ${e.note}</li>`).join('\n')}</ol>${r.conflicts.length?`<div class="conflict-list"><strong>Konflikt:</strong> ${conflictText(r)} preferuje wariant przeciwny.</div>`:''}</div>`}d.innerHTML=out;box.appendChild(d)});
 }
 
 function showStep(n){$$('.panel').forEach((p,i)=>p.classList.toggle('hidden',i!==n-1));$$('.prog').forEach(p=>{const k=+p.dataset.p;p.classList.toggle('active',k===n);p.classList.toggle('done',k<n)});window.scrollTo({top:0,behavior:'smooth'});saveLocal()}
@@ -214,24 +241,60 @@ $('#runTests').onclick=()=>{currentResults=runAll();renderTests(currentResults);
 $('#debugBtn').onclick=()=>{baseline={selected:[...selected],results:currentResults,pseudo:pseudocode(),sig:signature()};isDebug=true;$('#versionbar').classList.add('show');renderRules();showStep(1);saveLocal()};
 $('#compareBtn').onclick=()=>{if(signature()===baseline.sig){toast('Zmień co najmniej jedną zasadę lub priorytet.');return}renderComparison();showStep(5)};
 
+function resultCell(c,r){
+ const main=r.choice?choiceLabel(c,r):(r.status==='protected_unresolved'?'NIEROZSTRZYGNIĘTE — S0':'NIEROZSTRZYGNIĘTE');
+ const deciding=r.decidingRule?r.decidingRule:'brak reguły rozstrzygającej';
+ const conflicts=conflictText(r);
+ return `${main}<br><span class="mini">Rozstrzyga: ${deciding}<br>Konflikty: ${conflicts}</span>`;
+}
 function renderComparison(){
  let h='<table><thead><tr><th>Test</th><th>Wersja 1</th><th>Wersja 2</th><th>Zmiana</th></tr></thead><tbody>';
- CASES.forEach((c,i)=>{const a=baseline.results[i],b=currentResults[i],same=a.choice===b.choice;h+=`<tr class="${same?'same':'changed'}"><td><strong>${c.id}. ${c.title}</strong></td><td>${choiceLabel(c,a)}<br><span class="mini">${a.decidingRule||'brak reguły rozstrzygającej'}</span></td><td>${choiceLabel(c,b)}<br><span class="mini">${b.decidingRule||'brak reguły rozstrzygającej'}</span></td><td>${same?'bez zmiany':'wynik zmieniony'}</td></tr>`});h+='</tbody></table>';$('#comparison').innerHTML=h;
+ CASES.forEach((c,i)=>{const a=baseline.results[i],b=currentResults[i],same=a.choice===b.choice&&a.status===b.status&&a.decidingRule===b.decidingRule&&a.conflicts.join(',')===b.conflicts.join(',');h+=`<tr class="${same?'same':'changed'}"><td><strong>${c.id}. ${c.title}</strong></td><td>${resultCell(c,a)}</td><td>${resultCell(c,b)}</td><td>${same?'bez zmiany':'zmienił się wynik, reguła rozstrzygająca lub układ konfliktów'}</td></tr>`});h+='</tbody></table>';$('#comparison').innerHTML=h;
 }
 function safe(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function summary(sel,res){return CASES.map((c,i)=>`${c.id}: ${res[i].choice||'N'} (${res[i].decidingRule||'-'})`).join(' | ')}
-function aiPromptText(){return `Jesteś krytycznym audytorem przejrzystego modelu regułowego, a nie arbitrem moralnym.\n\nMODEL PO DEBUGOWANIU\nPriorytety: ${selected.map((id,i)=>`${i+1}. ${id} — ${rule(id).name}`).join('; ')}\nPseudokod:\n${pseudocode()}\n\nWyniki testów:\n${CASES.map((c,i)=>`${c.id} ${c.title}: ${choiceLabel(c,currentResults[i])}; rozstrzyga ${currentResults[i].decidingRule||'brak'}; konflikty: ${currentResults[i].conflicts.join(', ')||'brak'}`).join('\n')}\n\nWskaż dokładnie dwa możliwe problemy logiczne lub etyczne tego modelu oraz jeden przypadek graniczny. Nie wydawaj ostatecznego werdyktu moralnego. Uzasadnij krótko i językiem zrozumiałym dla ucznia szkoły ponadpodstawowej.`}
+function resultCode(r){if(r.choice)return r.choice;if(r.status==='protected_unresolved')return 'N-S0';return 'N';}
+function summary(sel,res){return CASES.map((c,i)=>`${c.id}: ${resultCode(res[i])} (${res[i].decidingRule||'-'}; konflikty ${res[i].conflicts.join(',')||'brak'})`).join(' | ')}
+function aiPromptText(){return `Jesteś krytycznym audytorem przejrzystego modelu regułowego, a nie arbitrem moralnym.
+
+STAŁE ZABEZPIECZENIE
+S0 — ${SAFEGUARD.name}.
+
+MODEL PO DEBUGOWANIU
+Priorytety: ${selected.map((id,i)=>`${i+1}. ${id} — ${rule(id).name}`).join('; ')}
+Pseudokod:
+${pseudocode()}
+
+Wyniki testów:
+${CASES.map((c,i)=>`${c.id} ${c.title}: ${resultHeading(c,currentResults[i])}; rozstrzyga ${currentResults[i].decidingRule||'brak'}; konflikty: ${currentResults[i].conflicts.join(', ')||'brak'}; S0: ${currentResults[i].safeguard.note}`).join('\n')}
+
+Wskaż dokładnie dwa możliwe problemy logiczne lub etyczne tego modelu oraz jeden przypadek graniczny. Nie wydawaj ostatecznego werdyktu moralnego. Uzasadnij krótko i językiem zrozumiałym dla ucznia szkoły ponadpodstawowej.`}
+function testsTable(res,title){
+ let h=`<div class="report-card"><h3>${title}</h3><table class="report-table"><thead><tr><th>Test</th><th>Wynik</th><th>Reguła rozstrzygająca</th><th>Konflikty</th><th>S0</th></tr></thead><tbody>`;
+ CASES.forEach((c,i)=>{const r=res[i];h+=`<tr><td><strong>${c.id}</strong><br><span class="mini">${safe(c.title)}</span></td><td>${safe(resultHeading(c,r))}</td><td>${safe(r.decidingRule?`${r.decidingRule} — ${rule(r.decidingRule).name}`:'brak')}</td><td>${safe(conflictText(r))}</td><td>${safe(r.safeguard.note)}</td></tr>`});
+ return h+'</tbody></table></div>';
+}
+function comparisonTableHtml(){
+ let h='<div class="report-card"><h3>Porównanie wersji V1 i V2</h3><table class="report-table"><thead><tr><th>Test</th><th>V1</th><th>V2</th><th>Ocena zmiany</th></tr></thead><tbody>';
+ CASES.forEach((c,i)=>{const a=baseline.results[i],b=currentResults[i],same=a.choice===b.choice&&a.status===b.status&&a.decidingRule===b.decidingRule&&a.conflicts.join(',')===b.conflicts.join(',');h+=`<tr><td><strong>${c.id}</strong><br><span class="mini">${safe(c.title)}</span></td><td>${safe(resultHeading(c,a))}<br><span class="mini">${safe(a.decidingRule||'brak')}; konflikty: ${safe(conflictText(a))}</span></td><td>${safe(resultHeading(c,b))}<br><span class="mini">${safe(b.decidingRule||'brak')}; konflikty: ${safe(conflictText(b))}</span></td><td>${same?'bez zmiany':'zmiana wyniku, reguły rozstrzygającej lub układu konfliktów'}</td></tr>`});
+ return h+'</tbody></table></div>';
+}
+function validateReportFields(){
+ const required=[['studentCode','Wpisz anonimowy kod ucznia.'],['changeWhat','Opisz, co zmieniłeś w modelu.'],['changeWhy','Opisz problem, który chciałeś rozwiązać.'],['newProblem','Opisz skutek uboczny albo wpisz, że go nie zauważyłeś.'],['reflection','Uzupełnij wniosek końcowy.']];
+ for(const [id,msg] of required){const el=$('#'+id);if(!el.value.trim()){toast(msg);el.focus();return false;}}
+ return true;
+}
 function buildReport(){
- const fields={studentCode:$('#studentCode').value,changeWhat:$('#changeWhat').value,changeWhy:$('#changeWhy').value,newProblem:$('#newProblem').value,reflection:$('#reflection').value};
+ if(!validateReportFields())return;
+ const fields={studentCode:$('#studentCode').value.trim(),changeWhat:$('#changeWhat').value.trim(),changeWhy:$('#changeWhy').value.trim(),newProblem:$('#newProblem').value.trim(),reflection:$('#reflection').value.trim()};
  reportData={baseline,current:{selected:[...selected],results:currentResults,pseudo:pseudocode(),sig:signature()},fields,date:new Date().toLocaleString('pl-PL')};
- const cards=(sel,res,pseudo,title)=>`<div class="report-card"><h3>${title}</h3><p><strong>Priorytety:</strong><br>${sel.map((id,i)=>`${i+1}. ${id} — ${safe(rule(id).name)}`).join('<br>')}</p><p><strong>Wyniki:</strong><br>${safe(summary(sel,res))}</p><details><summary>Pseudokod</summary><pre>${safe(pseudo)}</pre></details><div class="signature">${safe(signature(sel))}</div></div>`;
- $('#report').innerHTML=`<div class="notice ok"><strong>Kod ucznia:</strong> ${safe(fields.studentCode||'—')} &nbsp; <strong>Data:</strong> ${safe(reportData.date)}</div><div class="report-grid">${cards(baseline.selected,baseline.results,baseline.pseudo,'Wersja 1 — przed debugowaniem')}${cards(selected,currentResults,pseudocode(),'Wersja 2 — po debugowaniu')}</div><div class="report-card"><h3>Refleksja</h3><p><strong>Co zmieniłem:</strong> ${safe(fields.changeWhat||'—')}</p><p><strong>Problem, który chciałem rozwiązać:</strong> ${safe(fields.changeWhy||'—')}</p><p><strong>Nowy problem lub skutek uboczny:</strong> ${safe(fields.newProblem||'—')}</p><p><strong>Wniosek końcowy:</strong> ${safe(fields.reflection||'—')}</p></div>`;
+ const configCard=(sel,pseudo,title)=>`<div class="report-card"><h3>${title}</h3><p><strong>Stałe zabezpieczenie:</strong><br>S0 — ${safe(SAFEGUARD.name)}</p><p><strong>Priorytety reguł:</strong><br>${sel.map((id,i)=>`${i+1}. ${id} — ${safe(rule(id).name)}`).join('<br>')}</p><details><summary>Pseudokod</summary><pre>${safe(pseudo)}</pre></details><div class="signature">${safe(signature(sel))}</div></div>`;
+ $('#report').innerHTML=`<div class="notice ok"><strong>Kod ucznia:</strong> ${safe(fields.studentCode)} &nbsp; <strong>Data:</strong> ${safe(reportData.date)}<br><span class="mini">Po zapisaniu przekaż raport w miejscu wskazanym przez nauczyciela.</span></div><div class="report-grid">${configCard(baseline.selected,baseline.pseudo,'Konfiguracja V1 — przed debugowaniem')}${configCard(selected,pseudocode(),'Konfiguracja V2 — po debugowaniu')}</div>${testsTable(baseline.results,'Pełne wyniki testów — V1')}${testsTable(currentResults,'Pełne wyniki testów — V2')}${comparisonTableHtml()}<div class="report-card"><h3>Refleksja i uzasadnienie debugowania</h3><p><strong>Co zmieniłem:</strong> ${safe(fields.changeWhat)}</p><p><strong>Problem, który chciałem rozwiązać:</strong> ${safe(fields.changeWhy)}</p><p><strong>Nowy problem lub skutek uboczny:</strong> ${safe(fields.newProblem)}</p><p><strong>Wniosek końcowy:</strong> ${safe(fields.reflection)}</p></div>`;
  $('#aiPrompt').textContent=aiPromptText();showStep(6);saveLocal();
 }
 $('#makeReport').onclick=buildReport;
 $('#copyPrompt').onclick=async()=>{try{await navigator.clipboard.writeText($('#aiPrompt').textContent);toast('Prompt skopiowany.')}catch(e){toast('Zaznacz tekst i skopiuj ręcznie.')}};
 function standaloneReport(){
- const body=$('#report').innerHTML;const prompt=safe($('#aiPrompt').textContent);return `<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Raport — Etyczny Kompilator AI</title><style>body{font-family:Arial,sans-serif;max-width:960px;margin:30px auto;padding:0 18px;color:#172033}h1{color:#2857c5}.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.report-card{border:1px solid #dbe3ee;border-radius:14px;padding:15px;margin:12px 0}.notice{background:#eaf9f2;border-left:4px solid #0b7f4b;padding:12px}.signature,pre{font-family:monospace;background:#eef3ff;padding:10px;border-radius:8px;white-space:pre-wrap}@media(max-width:700px){.report-grid{grid-template-columns:1fr}}</style></head><body><h1>Etyczny Kompilator AI — raport</h1>${body}<h2>Prompt audytowy</h2><pre>${prompt}</pre></body></html>`}
+ const body=$('#report').innerHTML;const prompt=safe($('#aiPrompt').textContent);return `<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Raport — Etyczny Kompilator AI</title><style>body{font-family:Arial,sans-serif;max-width:1100px;margin:30px auto;padding:0 18px;color:#172033}h1{color:#2857c5}.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.report-card{border:1px solid #dbe3ee;border-radius:14px;padding:15px;margin:12px 0}.notice{background:#eaf9f2;border-left:4px solid #0b7f4b;padding:12px}.signature,pre{font-family:monospace;background:#eef3ff;padding:10px;border-radius:8px;white-space:pre-wrap}.report-table{width:100%;border-collapse:collapse}.report-table th,.report-table td{border:1px solid #dbe3ee;padding:8px;text-align:left;vertical-align:top}.report-table th{background:#edf2fb}.mini{font-size:.85rem;color:#5d6a7c}@media(max-width:700px){.report-grid{grid-template-columns:1fr}}@media print{details{display:block}details>summary{display:none}}</style></head><body><h1>Etyczny Kompilator AI — raport</h1>${body}<h2>Prompt audytowy</h2><pre>${prompt}</pre></body></html>`}
 $('#downloadReport').onclick=()=>{const blob=new Blob([standaloneReport()],{type:'text/html;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`raport_etyczny_kompilator_${($('#studentCode').value||'uczen').replace(/[^a-z0-9_-]/gi,'_')}.html`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 $('#restart').onclick=()=>{if(confirm('Usunąć bieżący model i rozpocząć od nowa?')){clearState();location.reload()}};
 ['studentCode','changeWhat','changeWhy','newProblem','reflection'].forEach(id=>$('#'+id).addEventListener('input',saveLocal));

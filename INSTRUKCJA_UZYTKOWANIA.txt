@@ -1,53 +1,26 @@
-ETYczny KOMPILATOR AI — INSTRUKCJA
-==================================
+INSTRUKCJA UŻYTKOWANIA — ETYCZNY KOMPILATOR AI 2.0
 
-1. CO TO JEST?
-Autorska, jednoplikowa aplikacja internetowa do lekcji informatyki:
-„Etyczny kompilator AI. Projektowanie, testowanie i debugowanie algorytmu decyzyjnego”.
+Dostęp online: https://ethicsandschool-lgtm.github.io/etyczny-kompilator-ai/
+Wersja offline: otwórz plik Etyczny_Kompilator_AI.html w aktualnej przeglądarce.
 
-Narzędzie jest przejrzystym SILNIKIEM REGUŁOWYM. Nie jest modelem uczenia maszynowego
-ani generatywną sztuczną inteligencją. Nazwa „kompilator” ma znaczenie dydaktyczne:
-aplikacja przekłada wybrane zasady i ich priorytety na pseudokod oraz wykonuje zestaw testów.
+PRZEBIEG PRACY UCZNIA
+1. Otwórz aplikację i zapoznaj się ze stałym zabezpieczeniem S0.
+2. Wybierz dokładnie trzy spośród sześciu reguł decyzyjnych.
+3. Ustal kolejność priorytetów.
+4. Kliknij „Kompiluj model” i przeczytaj pseudokod.
+5. Uruchom wszystkie cztery testy; przeanalizuj wynik, regułę rozstrzygającą, konflikty i S0.
+6. Zapisz wersję 1 i przejdź do debugowania.
+7. Zmień co najmniej jedną regułę lub jej priorytet.
+8. Ponownie skompiluj model i uruchom identyczne testy.
+9. Porównaj V1 z V2 i uzupełnij wszystkie pola refleksji.
+10. Wygeneruj raport i zapisz go jako HTML albo PDF.
+11. Przekaż raport w miejscu wskazanym przez nauczyciela.
 
-2. URUCHOMIENIE OFFLINE
-- skopiuj plik Etyczny_Kompilator_AI.html na komputer lub tablet;
-- otwórz go w aktualnej przeglądarce Chrome, Edge, Firefox lub Safari;
-- aplikacja nie wymaga instalacji, konta, serwera ani internetu;
-- dane są zapisywane wyłącznie lokalnie w przeglądarce urządzenia.
+S0 — STAŁE ZABEZPIECZENIE
+S0 odrzuca wiek, zawód, płeć, status i sprawność jako kryteria hierarchizowania wartości życia. Nie jest wybierane przez ucznia i nie podlega zmianie priorytetu. W T4 prowadzi do wyniku „NIEROZSTRZYGNIĘTE — S0”.
 
-3. PUBLIKACJA ONLINE
-Plik można umieścić jako statyczną stronę na szkolnym serwerze, GitHub Pages,
-Netlify, Cloudflare Pages lub innym hostingu statycznym. Po publikacji wygeneruj kod QR
-do adresu strony. Nie trzeba modyfikować kodu.
+RAPORT
+Raport zawiera konfiguracje V1 i V2, pseudokod, pełne tabele testów, reguły rozstrzygające, konflikty, komunikaty S0, tabelę porównawczą, refleksję i prompt audytowy.
 
-4. PODSTAWOWY PRZEBIEG PRACY UCZNIA
-- wybór dokładnie 3 spośród 6 reguł;
-- ustalenie kolejności priorytetów;
-- wygenerowanie pseudokodu;
-- wykonanie 4 przypadków testowych;
-- analiza śladu decyzyjnego i konfliktów;
-- zapis wersji 1;
-- zmiana reguły lub priorytetu;
-- ponowne testy i porównanie wyników;
-- utworzenie raportu i promptu do krytycznego audytu AI.
-
-5. OCHRONA DANYCH
-Aplikacja nie wysyła danych na serwer i nie wymaga danych osobowych. Pole „Kod ucznia”
-jest opcjonalne. Zaleca się stosowanie anonimowych oznaczeń, np. U17.
-
-6. WYMAGANIA SPRZĘTOWE
-Wariant zalecany: jedno szkolne urządzenie dla każdego ucznia (tablet, laptop lub laptop
-przeglądarkowy). Wariant alternatywny: jedno urządzenie na parę.
-
-7. RAPORT
-Uczeń może:
-- wydrukować raport lub zapisać go jako PDF z poziomu przeglądarki;
-- pobrać samodzielny raport HTML;
-- skopiować gotowy prompt do audytu generatywnej AI.
-
-8. ZAWARTOŚĆ PAKIETU
-- Etyczny_Kompilator_AI.html — aplikacja i kod źródłowy w jednym pliku;
-- INSTRUKCJA_Etyczny_Kompilator_AI.txt — niniejsza instrukcja.
-
-Wersja prototypowa do testów dydaktycznych. Przed lekcją nauczyciel powinien sprawdzić
-aplikację na urządzeniach i w przeglądarce używanych w danej szkole.
+PRYWATNOŚĆ
+Aplikacja nie wymaga konta i nie wysyła danych na serwer. Używaj wyłącznie anonimowego kodu ucznia.

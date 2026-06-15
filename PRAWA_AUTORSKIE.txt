@@ -1,0 +1,10 @@
+PRAWA AUTORSKIE
+
+Autor koncepcji, projektu dydaktycznego i specyfikacji funkcjonalnej:
+Łukasz Szymański
+
+Etyczny Kompilator AI jest elementem autorskiego projektu edukacyjnego.
+Repozytorium i kod nie są obecnie udostępnione na licencji open source.
+Wszelkie prawa zastrzeżone.
+
+Zezwolenie na wykorzystanie lub dalsze rozpowszechnianie może wynikać z odrębnej zgody autora albo z umowy zawartej w związku z konkursem „Lekcja Przyszłości”.
