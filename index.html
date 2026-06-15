@@ -129,12 +129,13 @@
       <div class="actions"><button class="btn" id="copyPrompt">Kopiuj prompt</button><div class="right"><button class="btn" onclick="window.print()">Drukuj / zapisz jako PDF</button><button class="btn secondary" id="downloadReport">Pobierz raport HTML</button><button class="btn danger" id="restart">Zacznij od nowa</button></div></div>
     </section>
   </main>
-  <div class="footer">Autorskie narzędzie dydaktyczne Łukasza Szymańskiego • wersja 2.2 • dane pozostają na urządzeniu użytkownika</div>
+  <div class="footer">Autorskie narzędzie dydaktyczne Łukasza Szymańskiego • wersja 2.3 • dane pozostają na urządzeniu użytkownika</div>
 </div>
 <div id="toast" class="toast" role="status"></div>
 
 <script>
 'use strict';
+const APP_VERSION='2.3';
 const SAFEGUARD = {
  id:'S0',
  label:'Stałe zabezpieczenie nr 0',
@@ -201,7 +202,7 @@ function sameAdmissible(A,B){
 function evalSafeguard(c){
  const traitsPresent=(c.A.traits.length||c.B.traits.length)>0;
  const protectedTie=traitsPresent&&sameAdmissible(c.A,c.B);
- return {id:'S0',active:traitsPresent,protectedTie,note:protectedTie?'cechy osobowe zostały odrzucone, a po ich pominięciu brak dopuszczalnego kryterium rozstrzygającego':traitsPresent?'cechy osobowe zostały pominięte; decyzja może opierać się wyłącznie na dopuszczalnych danych':'w przypadku nie występują cechy osobowe wymagające odrzucenia'};
+ return {id:'S0',active:traitsPresent,protectedTie,note:protectedTie?'cechy osobowe zostały odrzucone, a po ich pominięciu brak dopuszczalnego kryterium rozstrzygającego':traitsPresent?'cechy osobowe zostały pominięte; decyzja może opierać się wyłącznie na dopuszczalnych danych':'W tym przypadku nie występują cechy osobowe wymagające odrzucenia.'};
 }
 function evalRule(id,c){const A=c.A,B=c.B;
  const less=(x,y)=>x<y?'A':y<x?'B':null;
@@ -235,7 +236,7 @@ function renderTests(results=null){
 }
 
 function showStep(n){$$('.panel').forEach((p,i)=>p.classList.toggle('hidden',i!==n-1));$$('.prog').forEach(p=>{const k=+p.dataset.p;p.classList.toggle('active',k===n);p.classList.toggle('done',k<n)});window.scrollTo({top:0,behavior:'smooth'});saveLocal()}
-function saveLocal(){try{localStorage.setItem('ethicalCompilerState',JSON.stringify({selected,baseline,isDebug,changeWhat:$('#changeWhat')?.value||'',changeWhy:$('#changeWhy')?.value||'',newProblem:$('#newProblem')?.value||'',reflection:$('#reflection')?.value||'',studentCode:$('#studentCode')?.value||'',includePrompt:$('#includePrompt')?.checked||false}))}catch(e){}}
+function saveLocal(){try{localStorage.setItem('ethicalCompilerState',JSON.stringify({appVersion:APP_VERSION,selected,baseline,isDebug,changeWhat:$('#changeWhat')?.value||'',changeWhy:$('#changeWhy')?.value||'',newProblem:$('#newProblem')?.value||'',reflection:$('#reflection')?.value||'',studentCode:$('#studentCode')?.value||'',includePrompt:$('#includePrompt')?.checked||false}))}catch(e){}}
 function clearState(){try{localStorage.removeItem('ethicalCompilerState')}catch(e){}}
 
 $('#reset1').onclick=()=>{selected=[];renderRules()};
@@ -312,9 +313,10 @@ function validateReportFields(){
 function buildReport(){
  if(!validateReportFields())return;
  const fields={studentCode:$('#studentCode').value.trim(),changeWhat:$('#changeWhat').value.trim(),changeWhy:$('#changeWhy').value.trim(),newProblem:$('#newProblem').value.trim(),reflection:$('#reflection').value.trim()};
- reportData={baseline,current:{selected:[...selected],results:currentResults,pseudo:pseudocode(),sig:signature()},fields,date:new Date().toLocaleString('pl-PL')};
+ const baselineForReport={...baseline,pseudo:pseudocode(baseline.selected)};
+ reportData={baseline:baselineForReport,current:{selected:[...selected],results:currentResults,pseudo:pseudocode(),sig:signature()},fields,date:new Date().toLocaleString('pl-PL')};
  const configCard=(sel,pseudo,title)=>`<div class="report-card"><h3>${title}</h3><p><strong>Stałe zabezpieczenie:</strong><br><strong>S0 – ${safe(SAFEGUARD.label)}</strong> (od ang. <em>${safe(SAFEGUARD.origin)}</em>)<br>${safe(SAFEGUARD.name)}</p><p><strong>Priorytety reguł:</strong><br>${sel.map((id,i)=>`${i+1}. ${id} — ${safe(rule(id).name)}`).join('<br>')}</p><details><summary>Pseudokod</summary><pre>${safe(pseudo)}</pre></details><div class="signature">${safe(signature(sel))}</div></div>`;
- $('#report').innerHTML=`<div class="notice ok"><strong>Kod ucznia:</strong> ${safe(fields.studentCode)} &nbsp; <strong>Data:</strong> ${safe(reportData.date)}<br><span class="mini">Po zapisaniu przekaż raport w miejscu wskazanym przez nauczyciela.</span></div><div class="report-grid">${configCard(baseline.selected,baseline.pseudo,'Konfiguracja V1 — przed debugowaniem')}${configCard(selected,pseudocode(),'Konfiguracja V2 — po debugowaniu')}</div>${testsTable(baseline.results,'Pełne wyniki testów — V1')}${testsTable(currentResults,'Pełne wyniki testów — V2')}${comparisonTableHtml()}<div class="report-card"><h3>Refleksja i uzasadnienie debugowania</h3><p><strong>Co zmieniłem:</strong> ${safe(fields.changeWhat)}</p><p><strong>Problem, który chciałem rozwiązać:</strong> ${safe(fields.changeWhy)}</p><p><strong>Nowy problem lub skutek uboczny:</strong> ${safe(fields.newProblem)}</p><p><strong>Wniosek końcowy:</strong> ${safe(fields.reflection)}</p></div>`;
+ $('#report').innerHTML=`<div class="notice ok"><strong>Kod ucznia:</strong> ${safe(fields.studentCode)} &nbsp; <strong>Data:</strong> ${safe(reportData.date)}<br><span class="mini">Po zapisaniu przekaż raport w miejscu wskazanym przez nauczyciela.</span></div><div class="report-grid">${configCard(reportData.baseline.selected,reportData.baseline.pseudo,'Konfiguracja V1 — przed debugowaniem')}${configCard(selected,pseudocode(),'Konfiguracja V2 — po debugowaniu')}</div>${testsTable(baseline.results,'Pełne wyniki testów — V1')}${testsTable(currentResults,'Pełne wyniki testów — V2')}${comparisonTableHtml()}<div class="report-card"><h3>Refleksja i uzasadnienie debugowania</h3><p><strong>Co zmieniłem:</strong> ${safe(fields.changeWhat)}</p><p><strong>Problem, który chciałem rozwiązać:</strong> ${safe(fields.changeWhy)}</p><p><strong>Nowy problem lub skutek uboczny:</strong> ${safe(fields.newProblem)}</p><p><strong>Wniosek końcowy:</strong> ${safe(fields.reflection)}</p></div>`;
  $('#aiPrompt').textContent=aiPromptText();$('#promptPanel').classList.toggle('print-enabled',$('#includePrompt').checked);showStep(6);saveLocal();
 }
 $('#makeReport').onclick=buildReport;
@@ -331,7 +333,7 @@ $('#restart').onclick=()=>{if(confirm('Usunąć bieżący model i rozpocząć od
 ['studentCode','changeWhat','changeWhy','newProblem','reflection'].forEach(id=>$('#'+id).addEventListener('input',saveLocal));
 
 function restore(){
- try{const s=JSON.parse(localStorage.getItem('ethicalCompilerState')||'null');if(!s)return;if(Array.isArray(s.selected))selected=s.selected;if(s.baseline)baseline=s.baseline;if(s.isDebug){isDebug=true;$('#versionbar').classList.add('show')}['studentCode','changeWhat','changeWhy','newProblem','reflection'].forEach(id=>{if(s[id])$('#'+id).value=s[id]});if(s.includePrompt){$('#includePrompt').checked=true;$('#promptPanel').classList.add('print-enabled');}}catch(e){}
+ try{const s=JSON.parse(localStorage.getItem('ethicalCompilerState')||'null');if(!s)return;if(s.appVersion!==APP_VERSION){localStorage.removeItem('ethicalCompilerState');return;}if(Array.isArray(s.selected))selected=s.selected;if(s.baseline)baseline=s.baseline;if(s.isDebug){isDebug=true;$('#versionbar').classList.add('show')}['studentCode','changeWhat','changeWhy','newProblem','reflection'].forEach(id=>{if(s[id])$('#'+id).value=s[id]});if(s.includePrompt){$('#includePrompt').checked=true;$('#promptPanel').classList.add('print-enabled');}}catch(e){}
 }
 restore();renderRules();
 </script>

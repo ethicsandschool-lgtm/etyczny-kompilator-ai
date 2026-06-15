@@ -1,4 +1,4 @@
-INSTRUKCJA UŻYTKOWANIA — ETYCZNY KOMPILATOR AI 2.2
+INSTRUKCJA UŻYTKOWANIA — ETYCZNY KOMPILATOR AI 2.3
 
 Dostęp online: https://ethicsandschool-lgtm.github.io/etyczny-kompilator-ai/
 Wersja offline: otwórz plik index.html albo Etyczny_Kompilator_AI.html w aktualnej przeglądarce.
@@ -28,3 +28,6 @@ Raport zawiera konfiguracje V1 i V2, pseudokod, pełne tabele testów, reguły r
 
 PRYWATNOŚĆ
 Aplikacja nie wymaga konta i nie wysyła danych na serwer. Używaj wyłącznie anonimowego kodu ucznia.
+
+AKTUALIZACJE I ZAPIS SESJI
+Wersja 2.3 zapisuje identyfikator wydania. Po aktualizacji aplikacja automatycznie odrzuca stan utworzony przez starszą wersję, a pseudokod V1 i V2 w raporcie jest odtwarzany z aktualnych definicji reguł.

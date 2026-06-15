@@ -1,5 +1,12 @@
 CHANGELOG — ETYCZNY KOMPILATOR AI
 
+Wersja 2.3 — 15.06.2026
+- ujednolicenie pełnego rozwinięcia S0 w pseudokodzie V1 i V2;
+- raport odtwarza pseudokod wersji 1 z aktualnych definicji reguł zamiast używać tekstu zachowanego przez starszą sesję;
+- dodanie identyfikatora wersji w zapisie lokalnym i automatyczne odrzucanie stanu utworzonego przez starsze wydanie aplikacji;
+- korekta komunikatu: „W tym przypadku nie występują cechy osobowe wymagające odrzucenia.”;
+- aktualizacja scenariusza, podglądów aplikacji i pakietu pilotażowego.
+
 Wersja 2.2 — 15.06.2026
 - wyjaśnienie skrótu S0: „stałe zabezpieczenie nr 0” od ang. Safeguard 0;
 - doprecyzowanie, że litera S oznacza zabezpieczenie, a cyfra 0 wskazuje działanie przed regułami R1–R6;
