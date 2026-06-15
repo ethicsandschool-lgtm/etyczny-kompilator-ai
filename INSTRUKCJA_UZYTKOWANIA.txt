@@ -1,4 +1,4 @@
-INSTRUKCJA UŻYTKOWANIA — ETYCZNY KOMPILATOR AI 2.3
+INSTRUKCJA UŻYTKOWANIA — ETYCZNY KOMPILATOR AI 2.5
 
 Dostęp online: https://ethicsandschool-lgtm.github.io/etyczny-kompilator-ai/
 Wersja offline: otwórz plik index.html albo Etyczny_Kompilator_AI.html w aktualnej przeglądarce.
@@ -16,7 +16,7 @@ PRZEBIEG PRACY UCZNIA
 7. Zmień co najmniej jedną regułę lub jej priorytet.
 8. Ponownie skompiluj model i uruchom identyczne testy.
 9. Porównaj osobno wynik, regułę rozstrzygającą, konflikty i działanie S0.
-10. Uzupełnij refleksję, wygeneruj raport i zapisz go jako HTML albo PDF.
+10. Uzupełnij refleksję, wygeneruj raport i zapisz go jako HTML albo PDF. Pełny pseudokod V1 i V2 jest w raporcie zawsze widoczny i zostanie zapisany także w pliku PDF.
 11. Prompt do audytu AI dołącz do raportu tylko wtedy, gdy wymaga tego nauczyciel.
 12. Przekaż raport w miejscu wskazanym przez nauczyciela.
 
@@ -24,10 +24,10 @@ R2 — DOPRECYZOWANA REGUŁA
 R2 minimalizuje łączną liczbę przewidywanych ofiar śmiertelnych i osób ciężko rannych.
 
 RAPORT
-Raport zawiera konfiguracje V1 i V2, pseudokod, pełne tabele testów, reguły rozstrzygające, konflikty, komunikaty S0, precyzyjną tabelę porównawczą i refleksję. Elementy nawigacyjne oraz komunikat trybu debugowania nie są drukowane. Prompt audytowy jest domyślnie wyłączony.
+Raport zawiera konfiguracje V1 i V2, zawsze widoczny pełny pseudokod, pełne tabele testów, reguły rozstrzygające, konflikty, komunikaty S0, precyzyjną tabelę porównawczą i refleksję. Elementy nawigacyjne oraz komunikat trybu debugowania nie są drukowane. Prompt audytowy jest domyślnie wyłączony.
 
 PRYWATNOŚĆ
 Aplikacja nie wymaga konta i nie wysyła danych na serwer. Używaj wyłącznie anonimowego kodu ucznia.
 
 AKTUALIZACJE I ZAPIS SESJI
-Wersja 2.3 zapisuje identyfikator wydania. Po aktualizacji aplikacja automatycznie odrzuca stan utworzony przez starszą wersję, a pseudokod V1 i V2 w raporcie jest odtwarzany z aktualnych definicji reguł.
+Wersja 2.5 zapisuje identyfikator wydania. Po aktualizacji aplikacja automatycznie odrzuca stan utworzony przez starszą wersję, a pseudokod V1 i V2 w raporcie jest odtwarzany z aktualnych definicji reguł.

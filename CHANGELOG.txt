@@ -1,5 +1,16 @@
 CHANGELOG — ETYCZNY KOMPILATOR AI
 
+Wersja 2.5 — 16.06.2026
+- pełny pseudokod V1 i V2 jest osadzany w raporcie jako stały, zawsze widoczny blok zamiast elementu rozwijanego;
+- pobrany raport HTML i zapis PDF nie zależą już od obsługi elementu <details> przez przeglądarkę;
+- aktualizacja scenariusza, instrukcji i pakietu pilotażowego.
+
+Wersja 2.4 — 16.06.2026
+- automatyczne rozwijanie pełnego pseudokodu V1 i V2 podczas drukowania oraz zapisu raportu do PDF;
+- sekcje pseudokodu są domyślnie rozwinięte w raporcie ucznia;
+- po zakończeniu drukowania interfejs przywraca wcześniejszy stan rozwinięcia sekcji;
+- aktualizacja scenariusza i instrukcji pilotażowych.
+
 Wersja 2.3 — 15.06.2026
 - ujednolicenie pełnego rozwinięcia S0 w pseudokodzie V1 i V2;
 - raport odtwarza pseudokod wersji 1 z aktualnych definicji reguł zamiast używać tekstu zachowanego przez starszą sesję;

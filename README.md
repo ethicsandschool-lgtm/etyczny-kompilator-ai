@@ -1,4 +1,4 @@
-# Etyczny Kompilator AI — wersja 2.3
+# Etyczny Kompilator AI — wersja 2.5
 
 Autorskie narzędzie edukacyjne do projektowania, testowania i debugowania priorytetowego modelu regułowego podczas lekcji informatyki.
 
@@ -17,6 +17,7 @@ https://ethicsandschool-lgtm.github.io/etyczny-kompilator-ai/
 - zapis V1, debugowanie i utworzenie V2;
 - porównanie osobno: wyniku, reguły rozstrzygającej, konfliktów i działania S0;
 - raport ucznia bez elementów nawigacyjnych i komunikatu trybu debugowania;
+- pełny pseudokod V1 i V2 jest osadzany w raporcie jako stały, zawsze widoczny blok, dzięki czemu pojawia się także w pliku PDF;
 - opcjonalny prompt do audytu generatywnej AI, domyślnie niedołączany do raportu.
 - raport odtwarza pseudokod V1 i V2 z aktualnych definicji reguł, dzięki czemu nie zachowuje nieaktualnego opisu po aktualizacji aplikacji;
 - aplikacja automatycznie odrzuca stan sesji zapisany przez starszą wersję;
