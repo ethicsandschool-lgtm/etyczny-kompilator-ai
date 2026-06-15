@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>Etyczny Kompilator AI</title>
+  <style>
+    :root{
+      --bg:#f4f7fb;--panel:#ffffff;--ink:#172033;--muted:#5d6a7c;--line:#dbe3ee;
+      --accent:#2857c5;--accent-2:#0b7f72;--soft:#eaf0ff;--ok:#0b7f4b;--warn:#9a5a00;
+      --danger:#b42318;--shadow:0 12px 32px rgba(29,45,79,.10);--radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(180deg,#eef3fb 0,#f8fafc 45%,#eef3fb 100%);color:var(--ink);min-height:100vh}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    a{color:var(--accent)}
+    .app{max-width:1120px;margin:0 auto;padding:22px}
+    .topbar{display:flex;gap:18px;justify-content:space-between;align-items:center;margin-bottom:18px}
+    .brand{display:flex;gap:13px;align-items:center}
+    .brandmark{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--accent),#633ccf);display:grid;place-items:center;color:#fff;font-weight:800;box-shadow:var(--shadow)}
+    .brand h1{font-size:1.25rem;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:.92rem}
+    .privacy{font-size:.82rem;color:var(--muted);text-align:right;max-width:320px}
+    .hero{background:linear-gradient(135deg,#172c63,#2857c5 60%,#4a3ccf);color:#fff;border-radius:24px;padding:30px;box-shadow:var(--shadow);margin-bottom:18px;position:relative;overflow:hidden}
+    .hero:after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-90px;top:-120px;background:rgba(255,255,255,.10)}
+    .hero h2{font-size:clamp(1.75rem,4vw,3rem);line-height:1.05;margin:0 0 12px;max-width:760px}.hero p{max-width:820px;line-height:1.55;margin:0;color:#e7edff}
+    .badge{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.14);padding:7px 11px;border:1px solid rgba(255,255,255,.18);border-radius:999px;font-size:.86rem;margin-bottom:14px}
+    .progress{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:18px 0}
+    .prog{background:#dfe6f2;color:#667085;border-radius:12px;padding:10px 8px;text-align:center;font-size:.77rem;font-weight:700;transition:.2s}.prog.active{background:var(--accent);color:#fff}.prog.done{background:#ccecdf;color:#0c6840}
+    .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:18px}
+    .panel h2{margin:0 0 8px;font-size:1.5rem}.lead{margin:0 0 20px;color:var(--muted);line-height:1.55}
+    .notice{border-left:4px solid var(--accent);background:#eef3ff;border-radius:12px;padding:13px 15px;margin:14px 0;color:#27375e;line-height:1.45}
+    .notice.warn{border-color:#d58a16;background:#fff5df;color:#6e4400}.notice.ok{border-color:#16a36a;background:#eaf9f2;color:#0d5f3d}
+    .rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .rule{display:block;border:2px solid var(--line);border-radius:16px;padding:16px;background:#fff;transition:.18s;position:relative;min-height:134px}.rule:hover{border-color:#9eb4e9;transform:translateY(-1px)}.rule.selected{border-color:var(--accent);background:var(--soft)}
+    .rule input{position:absolute;right:15px;top:15px;width:20px;height:20px}.rule strong{display:block;padding-right:34px;margin-bottom:7px}.rule small{display:block;color:var(--muted);line-height:1.45}.tag{display:inline-block;margin-top:9px;border-radius:999px;background:#eef2f7;padding:5px 8px;font-size:.72rem;color:#475467;font-weight:700}
+    .counter{font-weight:800;color:var(--accent)}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-top:22px}.actions .right{display:flex;flex-wrap:wrap;gap:10px;margin-left:auto}
+    .btn{border:none;border-radius:12px;padding:11px 16px;font-weight:800;background:#e9eef7;color:#263653}.btn.primary{background:var(--accent);color:#fff}.btn.secondary{background:var(--accent-2);color:#fff}.btn.danger{background:#ffe9e7;color:var(--danger)}.btn:disabled{opacity:.45;cursor:not-allowed}.btn:hover:not(:disabled){filter:brightness(.97);transform:translateY(-1px)}
+    .order-list{display:grid;gap:12px}.order-item{display:grid;grid-template-columns:54px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:13px;background:#fbfcfe}.rank{width:42px;height:42px;border-radius:12px;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:900}.order-item strong{display:block}.order-item small{color:var(--muted)}.move{display:flex;gap:6px}.iconbtn{border:1px solid var(--line);background:#fff;border-radius:10px;width:38px;height:38px;font-weight:900;color:var(--accent)}
+    pre{white-space:pre-wrap;word-break:break-word;background:#101827;color:#d9e7ff;border-radius:15px;padding:18px;line-height:1.5;overflow:auto;font-family:"SFMono-Regular",Consolas,monospace;font-size:.9rem}
+    .tests{display:grid;gap:16px}.case{border:1px solid var(--line);border-radius:16px;padding:17px;background:#fff}.case h3{margin:0 0 6px}.case .desc{color:var(--muted);line-height:1.45}.options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.option{background:#f6f8fc;border-radius:12px;padding:11px;border:1px solid #e5eaf2}.result{margin-top:13px;border-radius:13px;padding:14px;background:#eef7ff;border-left:4px solid var(--accent)}.result.conflict{background:#fff4e8;border-color:#e98b2a}.result.unresolved{background:#f2efff;border-color:#765ad9}.trace{margin:10px 0 0;padding-left:18px;color:#3d4a5f}.trace li{margin:5px 0}.conflict-list{margin-top:8px;color:#7a3f00}
+    .compare{overflow:auto}.compare table,.rubric{width:100%;border-collapse:collapse}.compare th,.compare td,.rubric th,.rubric td{border:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.compare th,.rubric th{background:#edf2fb}.changed{background:#fff6dc}.same{background:#eff9f4}
+    .fields{display:grid;gap:12px;margin-top:16px}.fields label{font-weight:800}.fields textarea,.fields input{width:100%;border:1px solid #bdc8d8;border-radius:11px;padding:11px;background:#fff;min-height:44px}.fields textarea{min-height:88px;resize:vertical}
+    .report-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.report-card{border:1px solid var(--line);border-radius:15px;padding:15px;background:#fbfcfe}.report-card h3{margin-top:0}.mini{color:var(--muted);font-size:.88rem;line-height:1.45}.signature{font-family:monospace;background:#eef3ff;padding:9px;border-radius:9px;word-break:break-all}
+    .hidden{display:none!important}.footer{text-align:center;color:var(--muted);font-size:.8rem;padding:8px 0 24px}.versionbar{display:none;background:#fff2cd;border:1px solid #f0cf68;color:#684f00;padding:11px 14px;border-radius:12px;margin-bottom:14px;font-weight:700}.versionbar.show{display:block}
+    .toast{position:fixed;right:20px;bottom:20px;background:#172033;color:#fff;padding:12px 16px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(12px);pointer-events:none;transition:.25s;z-index:99}.toast.show{opacity:1;transform:none}
+    @media(max-width:760px){.app{padding:12px}.topbar{align-items:flex-start}.privacy{display:none}.hero{padding:22px}.rules,.report-grid,.options{grid-template-columns:1fr}.progress{grid-template-columns:repeat(3,1fr)}.prog{font-size:.7rem}.order-item{grid-template-columns:46px 1fr}.move{grid-column:2}.panel{padding:18px}.actions{align-items:stretch}.actions .right{width:100%;margin:0}.btn{flex:1}.brand p{display:none}}
+    @media print{body{background:#fff}.topbar,.hero,.progress,.actions,.footer,.toast{display:none!important}.app{max-width:none;padding:0}.panel{box-shadow:none;border:none;padding:0}.report-card{break-inside:avoid}.panel:not(#step6){display:none!important}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="brandmark">EK</div><div><h1>Etyczny Kompilator AI</h1><p>Projektowanie, testowanie i debugowanie modelu decyzyjnego</p></div></div>
+    <div class="privacy">Działa lokalnie w przeglądarce. Bez kont, reklam i przesyłania danych na serwer.</div>
+  </header>
+
+  <section class="hero">
+    <div class="badge">Lekcja informatyki • system regułowy • krytyczna alfabetyzacja AI</div>
+    <h2>Zamień wartości w reguły. Przetestuj skutki. Zdebuguj model.</h2>
+    <p>To narzędzie nie jest modelem uczącym się. Jest przejrzystym silnikiem regułowym, który pokazuje, jak dobór i kolejność zasad wpływają na decyzje systemu.</p>
+  </section>
+
+  <div id="versionbar" class="versionbar">Tryb debugowania: tworzysz wersję 2. Zmień co najmniej jedną zasadę lub jej priorytet.</div>
+
+  <nav class="progress" aria-label="Postęp">
+    <div class="prog active" data-p="1">1. Zasady</div><div class="prog" data-p="2">2. Priorytety</div><div class="prog" data-p="3">3. Kompilacja</div><div class="prog" data-p="4">4. Testy</div><div class="prog" data-p="5">5. Debugowanie</div><div class="prog" data-p="6">6. Raport</div>
+  </nav>
+
+  <main>
+    <section class="panel" id="step1">
+      <h2>1. Wybierz dokładnie trzy zasady</h2>
+      <p class="lead">Twój model będzie stosował zasady w kolejności priorytetów. Nie istnieje automatycznie „moralnie poprawna” konfiguracja — celem jest zbadanie skutków wyboru.</p>
+      <div class="notice">Wybrano: <span id="count" class="counter">0</span>/3. Zasada równej godności działa jako zabezpieczenie: zakazuje używania cech osobowych jako kryterium wartości życia.</div>
+      <div id="rules" class="rules"></div>
+      <div class="actions"><button class="btn danger" id="reset1">Wyczyść wybór</button><div class="right"><button class="btn primary" id="to2" disabled>Dalej: ustaw priorytety</button></div></div>
+    </section>
+
+    <section class="panel hidden" id="step2">
+      <h2>2. Ustal kolejność priorytetów</h2>
+      <p class="lead">Model jest leksykograficzny: sprawdza zasadę nr 1, potem nr 2, a następnie nr 3. Pierwsza zasada, która rozstrzyga przypadek, wyznacza decyzję. Późniejsze zasady mogą ujawnić konflikt.</p>
+      <div id="order" class="order-list"></div>
+      <div class="actions"><button class="btn" data-back="1">Wstecz</button><div class="right"><button class="btn primary" id="compile">Kompiluj model</button></div></div>
+    </section>
+
+    <section class="panel hidden" id="step3">
+      <h2>3. Wygenerowany pseudokod</h2>
+      <p class="lead">„Kompilacja” jest tu metaforą dydaktyczną: aplikacja przekłada wybrane wartości na operacyjne instrukcje modelu regułowego.</p>
+      <pre id="pseudo"></pre>
+      <div class="notice warn">Model nie rozpoznaje dobra i zła. Wykonuje wyłącznie jawne reguły oraz pokazuje ich konsekwencje i konflikty.</div>
+      <div class="actions"><button class="btn" data-back="2">Wstecz</button><div class="right"><button class="btn secondary" id="to4">Uruchom zestaw testów</button></div></div>
+    </section>
+
+    <section class="panel hidden" id="step4">
+      <h2>4. Testy i ślad decyzyjny</h2>
+      <p class="lead">Każdy przypadek ma dwa warianty. Model pokazuje decyzję, pierwszą regułę rozstrzygającą oraz sprzeciw późniejszych reguł.</p>
+      <div id="tests" class="tests"></div>
+      <div class="actions"><button class="btn" data-back="3">Wstecz</button><div class="right"><button class="btn secondary" id="runTests">Uruchom wszystkie testy</button><button class="btn primary hidden" id="debugBtn">Zapisz wersję 1 i debuguj</button><button class="btn primary hidden" id="compareBtn">Porównaj wersje</button></div></div>
+    </section>
+
+    <section class="panel hidden" id="step5">
+      <h2>5. Porównanie po debugowaniu</h2>
+      <p class="lead">Sprawdź, co zmieniła korekta modelu. Naprawienie jednego przypadku może stworzyć nowy problem w innym.</p>
+      <div id="comparison" class="compare"></div>
+      <div class="fields">
+        <div><label for="studentCode">Kod ucznia (opcjonalny, bez danych osobowych)</label><input id="studentCode" maxlength="30" placeholder="np. U17" /></div>
+        <div><label for="changeWhat">Co zmieniłem w modelu?</label><textarea id="changeWhat" placeholder="Np. zamieniłem priorytet R1 z R3..."></textarea></div>
+        <div><label for="changeWhy">Jaki problem chciałem rozwiązać?</label><textarea id="changeWhy" placeholder="Opisz konflikt lub niepożądany wynik wersji 1."></textarea></div>
+        <div><label for="newProblem">Czy po zmianie pojawił się nowy problem?</label><textarea id="newProblem" placeholder="Wskaż skutek uboczny albo napisz, że go nie zauważyłeś."></textarea></div>
+        <div><label for="reflection">Dlaczego żadna konfiguracja nie gwarantuje automatycznie dobrej decyzji?</label><textarea id="reflection" placeholder="Krótka refleksja końcowa."></textarea></div>
+      </div>
+      <div class="actions"><button class="btn" data-back="4">Wróć do testów</button><div class="right"><button class="btn primary" id="makeReport">Utwórz raport</button></div></div>
+    </section>
+
+    <section class="panel hidden" id="step6">
+      <h2>6. Raport ucznia</h2>
+      <p class="lead">Raport dokumentuje model przed debugowaniem i po nim, wyniki testów oraz refleksję ucznia.</p>
+      <div id="report"></div>
+      <h3>Prompt do krytycznego audytu generatywnej AI</h3>
+      <pre id="aiPrompt"></pre>
+      <div class="actions"><button class="btn" id="copyPrompt">Kopiuj prompt</button><div class="right"><button class="btn" onclick="window.print()">Drukuj / zapisz jako PDF</button><button class="btn secondary" id="downloadReport">Pobierz raport HTML</button><button class="btn danger" id="restart">Zacznij od nowa</button></div></div>
+    </section>
+  </main>
+  <div class="footer">Autorskie narzędzie dydaktyczne • wersja offline • dane pozostają na urządzeniu użytkownika</div>
+</div>
+<div id="toast" class="toast" role="status"></div>
+
+<script>
+'use strict';
+const RULES = [
+ {id:'R1',name:'Minimalizuj przewidywaną liczbę ofiar',type:'konsekwencjalna',desc:'Wybierz wariant o mniejszej oczekiwanej liczbie ofiar śmiertelnych.',pseudo:'JEŻELI warianty różnią się oczekiwaną liczbą ofiar, WYBIERZ wariant z mniejszą wartością.'},
+ {id:'R2',name:'Nie różnicuj wartości życia według cech osobowych',type:'zabezpieczenie',desc:'Ignoruj wiek, zawód, płeć, status i sprawność jako podstawę hierarchizowania życia.',pseudo:'POMIŃ wiek, zawód, płeć, status i sprawność jako kryteria wartości życia.'},
+ {id:'R3',name:'Unikaj aktywnego skierowania pojazdu na człowieka',type:'deontologiczna',desc:'Preferuj wariant, który nie wymaga aktywnego manewru kierującego pojazd na osobę.',pseudo:'JEŻELI tylko jeden wariant wymaga aktywnego skierowania pojazdu na człowieka, WYBIERZ drugi wariant.'},
+ {id:'R4',name:'Chroń uczestników przestrzegających przepisów',type:'reguła prawna',desc:'Preferuj wariant powodujący mniejszą liczbę ofiar wśród osób przestrzegających zasad ruchu.',pseudo:'JEŻELI warianty różnią się liczbą ofiar przestrzegających przepisów, WYBIERZ wariant z mniejszą liczbą.'},
+ {id:'R5',name:'Chroń pasażerów pojazdu',type:'lojalność systemu',desc:'Preferuj wariant minimalizujący liczbę ofiar wśród pasażerów.',pseudo:'JEŻELI warianty różnią się liczbą ofiar wśród pasażerów, WYBIERZ wariant z mniejszą liczbą.'},
+ {id:'R6',name:'Przy niepewnych danych minimalizuj najgorszy możliwy skutek',type:'zarządzanie ryzykiem',desc:'Preferuj wariant o mniejszej liczbie ofiar w scenariuszu najgorszym.',pseudo:'JEŻELI dane są niepewne i warianty różnią się najgorszym możliwym skutkiem, WYBIERZ bezpieczniejszy wariant.'}
+];
+
+const CASES = [
+ {id:'T1',title:'Bariera czy manewr',desc:'System utracił hamowanie. Może utrzymać tor jazdy albo aktywnie zjechać na pas awaryjny.',
+  A:{label:'Utrzymaj tor jazdy',text:'Zderzenie z barierą; zagrożeni są pasażerowie.',expectedDeaths:2,worstCaseDeaths:2,activeHarm:false,passengerDeaths:2,lawAbidingDeaths:2,traits:[]},
+  B:{label:'Aktywnie zmień tor',text:'Manewr na pas awaryjny; zagrożona jest jedna osoba.',expectedDeaths:1,worstCaseDeaths:1,activeHarm:true,passengerDeaths:0,lawAbidingDeaths:1,traits:[]}},
+ {id:'T2',title:'Przejście i czerwone światło',desc:'Warianty różnią się liczbą ofiar oraz przestrzeganiem przepisów.',
+  A:{label:'Jedź prosto',text:'Zagrożone są dwie osoby, które weszły na czerwonym świetle.',expectedDeaths:2,worstCaseDeaths:2,activeHarm:false,passengerDeaths:0,lawAbidingDeaths:0,traits:[]},
+  B:{label:'Wykonaj manewr',text:'Zagrożona jest jedna osoba przechodząca prawidłowo.',expectedDeaths:1,worstCaseDeaths:1,activeHarm:true,passengerDeaths:0,lawAbidingDeaths:1,traits:[]}},
+ {id:'T3',title:'Niepewny odczyt czujników',desc:'Mniejsza wartość oczekiwana koliduje z mniejszym najgorszym możliwym skutkiem.',
+  A:{label:'Nagłe hamowanie',text:'Oczekiwana strata jest niższa, ale w najgorszym wariancie mogą zginąć trzy osoby.',expectedDeaths:0.4,worstCaseDeaths:3,activeHarm:false,passengerDeaths:0.4,lawAbidingDeaths:0.4,traits:[]},
+  B:{label:'Kontrolowane ominięcie',text:'Oczekiwana strata jest wyższa, ale najgorszy możliwy skutek to jedna ofiara.',expectedDeaths:0.6,worstCaseDeaths:1,activeHarm:true,passengerDeaths:0,lawAbidingDeaths:0.6,traits:[]}},
+ {id:'T4',title:'Cechy osób a równa godność',desc:'Liczby i warunki są identyczne. Różnią się wyłącznie opisy osób.',
+  A:{label:'Wariant A',text:'Zagrożona jest jedna młoda lekarka.',expectedDeaths:1,worstCaseDeaths:1,activeHarm:true,passengerDeaths:0,lawAbidingDeaths:1,traits:['wiek','zawód']},
+  B:{label:'Wariant B',text:'Zagrożony jest jeden starszy bezrobotny mężczyzna.',expectedDeaths:1,worstCaseDeaths:1,activeHarm:true,passengerDeaths:0,lawAbidingDeaths:1,traits:['wiek','zawód','status']}}
+];
+
+let selected=[]; let currentResults=null; let baseline=null; let isDebug=false; let reportData=null;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}
+function rule(id){return RULES.find(r=>r.id===id)}
+function fmt(n){return Number.isInteger(n)?String(n):String(n).replace('.',',')}
+
+function renderRules(){
+ const box=$('#rules');box.innerHTML='';
+ RULES.forEach(r=>{const lab=document.createElement('label');lab.className='rule'+(selected.includes(r.id)?' selected':'');lab.innerHTML=`<input type="checkbox" value="${r.id}" ${selected.includes(r.id)?'checked':''}><strong>${r.id}. ${r.name}</strong><small>${r.desc}</small><span class="tag">${r.type}</span>`;lab.querySelector('input').addEventListener('change',e=>toggleRule(r.id,e.target.checked));box.appendChild(lab)});
+ $('#count').textContent=selected.length;$('#to2').disabled=selected.length!==3;
+}
+function toggleRule(id,on){
+ if(on&&selected.length>=3){toast('Możesz wybrać dokładnie trzy zasady.');renderRules();return}
+ selected=on?[...selected,id]:selected.filter(x=>x!==id);renderRules();saveLocal();
+}
+function renderOrder(){
+ const box=$('#order');box.innerHTML='';selected.forEach((id,i)=>{const r=rule(id),row=document.createElement('div');row.className='order-item';row.innerHTML=`<div class="rank">${i+1}</div><div><strong>${r.id}. ${r.name}</strong><small>${r.desc}</small></div><div class="move"><button class="iconbtn" aria-label="Przesuń w górę" ${i===0?'disabled':''}>↑</button><button class="iconbtn" aria-label="Przesuń w dół" ${i===selected.length-1?'disabled':''}>↓</button></div>`;const b=row.querySelectorAll('button');b[0].onclick=()=>move(i,-1);b[1].onclick=()=>move(i,1);box.appendChild(row)});
+}
+function move(i,d){const j=i+d;[selected[i],selected[j]]=[selected[j],selected[i]];renderOrder();saveLocal()}
+function signature(sel=selected){return sel.join('>')}
+function pseudocode(sel=selected){
+ let out=['START','USTAW: wynik = NIERozstrzygnięty'];sel.forEach((id,i)=>{const r=rule(id);out.push('',`PRIORYTET ${i+1} — ${r.id}: ${r.name}`,`  ${r.pseudo}`,'  JEŻELI zasada jednoznacznie rozstrzyga → ZAPISZ decyzję i PRZEJDŹ do kontroli konfliktów.','  W PRZECIWNYM RAZIE → sprawdź kolejny priorytet.');});out.push('','KONTROLA KONFLIKTÓW:','  Sprawdź, czy późniejsza wybrana zasada preferuje wariant przeciwny.','  JEŻELI tak → OZNACZ konflikt, ale zachowaj decyzję zasady o wyższym priorytecie.','','JEŻELI żadna zasada nie rozstrzyga → ZWRÓĆ „NIEROZSTRZYGNIĘTE”.','STOP');return out.join('\n');
+}
+
+function evalRule(id,c){const A=c.A,B=c.B;
+ const less=(x,y)=>x<y?'A':y<x?'B':null;
+ switch(id){
+  case 'R1': return {pref:less(A.expectedDeaths,B.expectedDeaths),note:`oczekiwane ofiary: A=${fmt(A.expectedDeaths)}, B=${fmt(B.expectedDeaths)}`};
+  case 'R2': return {pref:null,note:(A.traits.length||B.traits.length)?'cechy osobowe zostały pominięte jako kryterium wartości życia':'brak cech osobowych istotnych dla zabezpieczenia'};
+  case 'R3': return {pref:A.activeHarm===B.activeHarm?null:(A.activeHarm?'B':'A'),note:`aktywny manewr: A=${A.activeHarm?'tak':'nie'}, B=${B.activeHarm?'tak':'nie'}`};
+  case 'R4': return {pref:less(A.lawAbidingDeaths,B.lawAbidingDeaths),note:`ofiary przestrzegające przepisów: A=${fmt(A.lawAbidingDeaths)}, B=${fmt(B.lawAbidingDeaths)}`};
+  case 'R5': return {pref:less(A.passengerDeaths,B.passengerDeaths),note:`ofiary wśród pasażerów: A=${fmt(A.passengerDeaths)}, B=${fmt(B.passengerDeaths)}`};
+  case 'R6': return {pref:less(A.worstCaseDeaths,B.worstCaseDeaths),note:`najgorszy możliwy skutek: A=${fmt(A.worstCaseDeaths)}, B=${fmt(B.worstCaseDeaths)}`};
+ }
+}
+function decide(c,sel=selected){
+ const evaluations=sel.map(id=>({id,...evalRule(id,c)}));
+ const first=evaluations.find(e=>e.pref);const choice=first?first.pref:null;
+ const conflicts=choice?evaluations.filter(e=>e.pref&&e.pref!==choice).map(e=>e.id):[];
+ return {caseId:c.id,choice,decidingRule:first?first.id:null,evaluations,conflicts};
+}
+function runAll(sel=selected){return CASES.map(c=>decide(c,sel))}
+function choiceLabel(c,res){return res.choice?`${res.choice}: ${c[res.choice].label}`:'NIEROZSTRZYGNIĘTE'}
+function renderTests(results=null){
+ const box=$('#tests');box.innerHTML='';CASES.forEach((c,idx)=>{const d=document.createElement('article');d.className='case';let out=`<h3>${c.id}. ${c.title}</h3><div class="desc">${c.desc}</div><div class="options"><div class="option"><strong>A. ${c.A.label}</strong><div class="mini">${c.A.text}</div></div><div class="option"><strong>B. ${c.B.label}</strong><div class="mini">${c.B.text}</div></div></div>`;if(results){const r=results[idx],cls=!r.choice?' unresolved':r.conflicts.length?' conflict':'';out+=`<div class="result${cls}"><strong>Decyzja modelu: ${choiceLabel(c,r)}</strong><div class="mini">${r.decidingRule?`Rozstrzygnęła reguła ${r.decidingRule}: ${rule(r.decidingRule).name}`:'Żadna z wybranych reguł nie rozstrzygnęła przypadku.'}</div><ol class="trace">${r.evaluations.map(e=>`<li><strong>${e.id}</strong>: ${e.pref?`preferuje ${e.pref}`:'nie rozstrzyga'} — ${e.note}</li>`).join('')}</ol>${r.conflicts.length?`<div class="conflict-list"><strong>Konflikt:</strong> ${r.conflicts.map(x=>`${x} (${rule(x).name})`).join('; ')} preferuje wariant przeciwny.</div>`:''}</div>`}d.innerHTML=out;box.appendChild(d)});
+}
+
+function showStep(n){$$('.panel').forEach((p,i)=>p.classList.toggle('hidden',i!==n-1));$$('.prog').forEach(p=>{const k=+p.dataset.p;p.classList.toggle('active',k===n);p.classList.toggle('done',k<n)});window.scrollTo({top:0,behavior:'smooth'});saveLocal()}
+function saveLocal(){try{localStorage.setItem('ethicalCompilerState',JSON.stringify({selected,baseline,isDebug,changeWhat:$('#changeWhat')?.value||'',changeWhy:$('#changeWhy')?.value||'',newProblem:$('#newProblem')?.value||'',reflection:$('#reflection')?.value||'',studentCode:$('#studentCode')?.value||''}))}catch(e){}}
+function clearState(){try{localStorage.removeItem('ethicalCompilerState')}catch(e){}}
+
+$('#reset1').onclick=()=>{selected=[];renderRules()};
+$('#to2').onclick=()=>{renderOrder();showStep(2)};
+$$('[data-back]').forEach(b=>b.onclick=()=>showStep(+b.dataset.back));
+$('#compile').onclick=()=>{$('#pseudo').textContent=pseudocode();showStep(3)};
+$('#to4').onclick=()=>{renderTests();currentResults=null;$('#runTests').classList.remove('hidden');$('#debugBtn').classList.add('hidden');$('#compareBtn').classList.add('hidden');showStep(4)};
+$('#runTests').onclick=()=>{currentResults=runAll();renderTests(currentResults);$('#runTests').classList.add('hidden');(baseline?$('#compareBtn'):$('#debugBtn')).classList.remove('hidden');saveLocal()};
+$('#debugBtn').onclick=()=>{baseline={selected:[...selected],results:currentResults,pseudo:pseudocode(),sig:signature()};isDebug=true;$('#versionbar').classList.add('show');renderRules();showStep(1);saveLocal()};
+$('#compareBtn').onclick=()=>{if(signature()===baseline.sig){toast('Zmień co najmniej jedną zasadę lub priorytet.');return}renderComparison();showStep(5)};
+
+function renderComparison(){
+ let h='<table><thead><tr><th>Test</th><th>Wersja 1</th><th>Wersja 2</th><th>Zmiana</th></tr></thead><tbody>';
+ CASES.forEach((c,i)=>{const a=baseline.results[i],b=currentResults[i],same=a.choice===b.choice;h+=`<tr class="${same?'same':'changed'}"><td><strong>${c.id}. ${c.title}</strong></td><td>${choiceLabel(c,a)}<br><span class="mini">${a.decidingRule||'brak reguły rozstrzygającej'}</span></td><td>${choiceLabel(c,b)}<br><span class="mini">${b.decidingRule||'brak reguły rozstrzygającej'}</span></td><td>${same?'bez zmiany':'wynik zmieniony'}</td></tr>`});h+='</tbody></table>';$('#comparison').innerHTML=h;
+}
+function safe(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function summary(sel,res){return CASES.map((c,i)=>`${c.id}: ${res[i].choice||'N'} (${res[i].decidingRule||'-'})`).join(' | ')}
+function aiPromptText(){return `Jesteś krytycznym audytorem przejrzystego modelu regułowego, a nie arbitrem moralnym.\n\nMODEL PO DEBUGOWANIU\nPriorytety: ${selected.map((id,i)=>`${i+1}. ${id} — ${rule(id).name}`).join('; ')}\nPseudokod:\n${pseudocode()}\n\nWyniki testów:\n${CASES.map((c,i)=>`${c.id} ${c.title}: ${choiceLabel(c,currentResults[i])}; rozstrzyga ${currentResults[i].decidingRule||'brak'}; konflikty: ${currentResults[i].conflicts.join(', ')||'brak'}`).join('\n')}\n\nWskaż dokładnie dwa możliwe problemy logiczne lub etyczne tego modelu oraz jeden przypadek graniczny. Nie wydawaj ostatecznego werdyktu moralnego. Uzasadnij krótko i językiem zrozumiałym dla ucznia szkoły ponadpodstawowej.`}
+function buildReport(){
+ const fields={studentCode:$('#studentCode').value,changeWhat:$('#changeWhat').value,changeWhy:$('#changeWhy').value,newProblem:$('#newProblem').value,reflection:$('#reflection').value};
+ reportData={baseline,current:{selected:[...selected],results:currentResults,pseudo:pseudocode(),sig:signature()},fields,date:new Date().toLocaleString('pl-PL')};
+ const cards=(sel,res,pseudo,title)=>`<div class="report-card"><h3>${title}</h3><p><strong>Priorytety:</strong><br>${sel.map((id,i)=>`${i+1}. ${id} — ${safe(rule(id).name)}`).join('<br>')}</p><p><strong>Wyniki:</strong><br>${safe(summary(sel,res))}</p><details><summary>Pseudokod</summary><pre>${safe(pseudo)}</pre></details><div class="signature">${safe(signature(sel))}</div></div>`;
+ $('#report').innerHTML=`<div class="notice ok"><strong>Kod ucznia:</strong> ${safe(fields.studentCode||'—')} &nbsp; <strong>Data:</strong> ${safe(reportData.date)}</div><div class="report-grid">${cards(baseline.selected,baseline.results,baseline.pseudo,'Wersja 1 — przed debugowaniem')}${cards(selected,currentResults,pseudocode(),'Wersja 2 — po debugowaniu')}</div><div class="report-card"><h3>Refleksja</h3><p><strong>Co zmieniłem:</strong> ${safe(fields.changeWhat||'—')}</p><p><strong>Problem, który chciałem rozwiązać:</strong> ${safe(fields.changeWhy||'—')}</p><p><strong>Nowy problem lub skutek uboczny:</strong> ${safe(fields.newProblem||'—')}</p><p><strong>Wniosek końcowy:</strong> ${safe(fields.reflection||'—')}</p></div>`;
+ $('#aiPrompt').textContent=aiPromptText();showStep(6);saveLocal();
+}
+$('#makeReport').onclick=buildReport;
+$('#copyPrompt').onclick=async()=>{try{await navigator.clipboard.writeText($('#aiPrompt').textContent);toast('Prompt skopiowany.')}catch(e){toast('Zaznacz tekst i skopiuj ręcznie.')}};
+function standaloneReport(){
+ const body=$('#report').innerHTML;const prompt=safe($('#aiPrompt').textContent);return `<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Raport — Etyczny Kompilator AI</title><style>body{font-family:Arial,sans-serif;max-width:960px;margin:30px auto;padding:0 18px;color:#172033}h1{color:#2857c5}.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.report-card{border:1px solid #dbe3ee;border-radius:14px;padding:15px;margin:12px 0}.notice{background:#eaf9f2;border-left:4px solid #0b7f4b;padding:12px}.signature,pre{font-family:monospace;background:#eef3ff;padding:10px;border-radius:8px;white-space:pre-wrap}@media(max-width:700px){.report-grid{grid-template-columns:1fr}}</style></head><body><h1>Etyczny Kompilator AI — raport</h1>${body}<h2>Prompt audytowy</h2><pre>${prompt}</pre></body></html>`}
+$('#downloadReport').onclick=()=>{const blob=new Blob([standaloneReport()],{type:'text/html;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`raport_etyczny_kompilator_${($('#studentCode').value||'uczen').replace(/[^a-z0-9_-]/gi,'_')}.html`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+$('#restart').onclick=()=>{if(confirm('Usunąć bieżący model i rozpocząć od nowa?')){clearState();location.reload()}};
+['studentCode','changeWhat','changeWhy','newProblem','reflection'].forEach(id=>$('#'+id).addEventListener('input',saveLocal));
+
+function restore(){
+ try{const s=JSON.parse(localStorage.getItem('ethicalCompilerState')||'null');if(!s)return;if(Array.isArray(s.selected))selected=s.selected;if(s.baseline)baseline=s.baseline;if(s.isDebug){isDebug=true;$('#versionbar').classList.add('show')}['studentCode','changeWhat','changeWhy','newProblem','reflection'].forEach(id=>{if(s[id])$('#'+id).value=s[id]});}catch(e){}
+}
+restore();renderRules();
+</script>
+</body>
+</html>
