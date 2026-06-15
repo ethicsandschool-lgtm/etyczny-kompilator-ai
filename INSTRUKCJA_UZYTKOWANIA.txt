@@ -1,7 +1,7 @@
-INSTRUKCJA UŻYTKOWANIA — ETYCZNY KOMPILATOR AI 2.0
+INSTRUKCJA UŻYTKOWANIA — ETYCZNY KOMPILATOR AI 2.1
 
 Dostęp online: https://ethicsandschool-lgtm.github.io/etyczny-kompilator-ai/
-Wersja offline: otwórz plik Etyczny_Kompilator_AI.html w aktualnej przeglądarce.
+Wersja offline: otwórz plik index.html albo Etyczny_Kompilator_AI.html w aktualnej przeglądarce.
 
 PRZEBIEG PRACY UCZNIA
 1. Otwórz aplikację i zapoznaj się ze stałym zabezpieczeniem S0.
@@ -12,15 +12,16 @@ PRZEBIEG PRACY UCZNIA
 6. Zapisz wersję 1 i przejdź do debugowania.
 7. Zmień co najmniej jedną regułę lub jej priorytet.
 8. Ponownie skompiluj model i uruchom identyczne testy.
-9. Porównaj V1 z V2 i uzupełnij wszystkie pola refleksji.
-10. Wygeneruj raport i zapisz go jako HTML albo PDF.
-11. Przekaż raport w miejscu wskazanym przez nauczyciela.
+9. Porównaj osobno wynik, regułę rozstrzygającą, konflikty i działanie S0.
+10. Uzupełnij refleksję, wygeneruj raport i zapisz go jako HTML albo PDF.
+11. Prompt do audytu AI dołącz do raportu tylko wtedy, gdy wymaga tego nauczyciel.
+12. Przekaż raport w miejscu wskazanym przez nauczyciela.
 
-S0 — STAŁE ZABEZPIECZENIE
-S0 odrzuca wiek, zawód, płeć, status i sprawność jako kryteria hierarchizowania wartości życia. Nie jest wybierane przez ucznia i nie podlega zmianie priorytetu. W T4 prowadzi do wyniku „NIEROZSTRZYGNIĘTE — S0”.
+R2 — DOPRECYZOWANA REGUŁA
+R2 minimalizuje łączną liczbę przewidywanych ofiar śmiertelnych i osób ciężko rannych.
 
 RAPORT
-Raport zawiera konfiguracje V1 i V2, pseudokod, pełne tabele testów, reguły rozstrzygające, konflikty, komunikaty S0, tabelę porównawczą, refleksję i prompt audytowy.
+Raport zawiera konfiguracje V1 i V2, pseudokod, pełne tabele testów, reguły rozstrzygające, konflikty, komunikaty S0, precyzyjną tabelę porównawczą i refleksję. Elementy nawigacyjne oraz komunikat trybu debugowania nie są drukowane. Prompt audytowy jest domyślnie wyłączony.
 
 PRYWATNOŚĆ
 Aplikacja nie wymaga konta i nie wysyła danych na serwer. Używaj wyłącznie anonimowego kodu ucznia.

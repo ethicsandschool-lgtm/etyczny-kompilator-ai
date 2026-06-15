@@ -1,4 +1,4 @@
-# Etyczny Kompilator AI
+# Etyczny Kompilator AI — wersja 2.1
 
 Autorskie narzędzie edukacyjne do projektowania, testowania i debugowania priorytetowego modelu regułowego podczas lekcji informatyki.
 
@@ -6,7 +6,7 @@ Autorskie narzędzie edukacyjne do projektowania, testowania i debugowania prior
 
 https://ethicsandschool-lgtm.github.io/etyczny-kompilator-ai/
 
-## Architektura dydaktyczna
+## Najważniejsze funkcje
 
 - **S0 — stałe zabezpieczenie antydyskryminacyjne**: odrzuca cechy osobowe jako kryterium wartościowania życia;
 - wybór trzech spośród sześciu reguł decyzyjnych;
@@ -14,8 +14,9 @@ https://ethicsandschool-lgtm.github.io/etyczny-kompilator-ai/
 - cztery autorskie przypadki testowe;
 - ślad decyzyjny, konflikty i chronione nierozstrzygnięcie;
 - zapis V1, debugowanie i utworzenie V2;
-- pełne tabele wyników i automatyczne porównanie wersji;
-- raport ucznia oraz prompt do opcjonalnego audytu generatywnej AI.
+- porównanie osobno: wyniku, reguły rozstrzygającej, konfliktów i działania S0;
+- raport ucznia bez elementów nawigacyjnych i komunikatu trybu debugowania;
+- opcjonalny prompt do audytu generatywnej AI, domyślnie niedołączany do raportu.
 
 ## Uruchomienie lokalne
 
