@@ -1,5 +1,13 @@
 CHANGELOG — ETYCZNY KOMPILATOR AI
 
+Wersja 2.6 — 16.06.2026
+- poprawione paginowanie raportu PDF: układ konfiguracji zmienia się w druku z dwóch kolumn na jedną;
+- długi pseudokod może dzielić się naturalnie między stronami;
+- sekcje wyników V1, wyników V2, porównania i refleksji rozpoczynają się od kontrolowanych podziałów stron;
+- dodano powtarzanie nagłówków tabel oraz ochronę wierszy przed dzieleniem i nakładaniem;
+- zmniejszono wyłącznie drukarską czcionkę i odstępy pseudokodu, bez zmiany widoku ekranowego;
+- aktualizacja scenariusza, instrukcji i pakietu pilotażowego.
+
 Wersja 2.5 — 16.06.2026
 - pełny pseudokod V1 i V2 jest osadzany w raporcie jako stały, zawsze widoczny blok zamiast elementu rozwijanego;
 - pobrany raport HTML i zapis PDF nie zależą już od obsługi elementu <details> przez przeglądarkę;
